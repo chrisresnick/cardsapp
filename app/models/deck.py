@@ -18,4 +18,11 @@ class Deck(db.Model):
             "owner": self.ownerId,
             "share": self.shareType,
             "readOnly": self.readOnly,
+            "numCards": len(self.cards)
+        }
+
+    def to_cards_dict(self):
+        return {
+            "id": self.id,
+            "cards": [card.to_dict() for card in self.cards]
         }

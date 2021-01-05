@@ -28,3 +28,15 @@ def addCard(id):
     deck.cards.append(newCard)
     db.session.commit()
     return jsonify(newCard.to_dict())
+
+
+@deck_routes.route("/<int:id>")
+def getDeck(id):
+    deck = Deck.query.get(id)
+    return jsonify(deck.to_dict())
+
+
+@deck_routes.route("/<int:id>/cards")
+def getDeckCards(id):
+    deck = Deck.query.get(id)
+    return jsonify(deck.to_cards_dict())
