@@ -22,6 +22,7 @@ const userReducer = (state=defaultState, action) => {
     switch(action.type){
         case SET_USER:
             newState = {...state}
+            console.log(action.payload)
             newState.user = action.payload;
             return newState;
         case DELETE_USER:
