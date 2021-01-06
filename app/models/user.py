@@ -2,13 +2,15 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
 class User(db.Model, UserMixin):
   __tablename__ = 'users'
-
   id = db.Column(db.Integer, primary_key = True)
   username = db.Column(db.String(40), nullable = False, unique = True)
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
+
+  decks = db.relationship("Deck", back_populates="user")
 
 
   @property
@@ -30,4 +32,8 @@ class User(db.Model, UserMixin):
       "id": self.id,
       "username": self.username,
       "email": self.email
+    }
+  def to_deck_list(self):
+    return {
+      "decks": [deck.to_dict() for deck in self.decks]
     }

@@ -10,6 +10,7 @@ class Deck(db.Model):
     readOnly = db.Column(db.Boolean, default=False)
 
     cards = db.relationship("Card", back_populates="deck")
+    user = db.relationship("User", back_populates="decks")
 
     def to_dict(self):
         return {

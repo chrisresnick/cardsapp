@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
-import Deck from "./components/decks";
+import Decks from "./components/decks";
 import { UserContext } from "./components/context";
 import { authenticate } from "./services/auth";
 
@@ -51,7 +51,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-          <Deck/>
+          <Decks/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
