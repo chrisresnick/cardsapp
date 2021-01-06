@@ -55,10 +55,30 @@ const PlaceHolder = ({cards, setCards, id}) => {
     );
 }
 
-const Card = ({card}) => {
+const Card = ({card, cards, setCards, idx}) => {
     const [question, setQuestion] = useState(card.question);
     const [answer, setAnswer] = useState(card.answer);
     const {isOpen, onOpen, onClose} = useDisclosure();
+
+    const editCard = async e => {
+        e.preventDefault();
+        let res = await fetch(`/api/cards/${card.id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify({question, answer})
+        })
+        res = await res.json();
+        if(res.errors) {
+            alert(res.errors[0]);
+            return;
+        }
+        const cardsCopy = [...cards];
+        cardsCopy[idx] = res;
+        setCards(cardsCopy);
+        onClose();
+    };
 
     return (
         <>
@@ -111,7 +131,7 @@ const Cards = () => {
         <Flex width="100%" pt={5} justify="center">
             <Flex width="80%">
                 <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
-                    {cards.slice(startIdx, startIdx+9).map(card => <Card key={`card#${card.id}`} card={card}/>)}
+                    {cards.slice(startIdx, startIdx+9).map((card, idx) => <Card key={`card#${card.id}`} card={card} cards={cards} setCards={setCards} idx={idx}/>)}
                     {extras.slice(0, (9-(cards.length-startIdx))).map((_, idx) => <PlaceHolder key={`ph${idx}`} cards={cards} setCards={setCards} id={id}/>)}
                 </SimpleGrid>
                 <Scrollbar startIdx={startIdx} setStartIdx={setStartIdx} lim={cards.length}/>
