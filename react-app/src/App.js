@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import Decks from "./components/decks";
+import Cards from "./components/cards";
 import { UserContext } from "./components/context";
 import { authenticate } from "./services/auth";
 
@@ -52,6 +53,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
           <Decks/>
+        </ProtectedRoute>
+        <ProtectedRoute path="/editDeck/:id" exact={true} authenticated={authenticated}>
+          <Cards/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

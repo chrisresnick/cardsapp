@@ -24,7 +24,7 @@ const PlaceHolder = ({decks, setDecks}) => {
     }
     return (
         <>
-            <Flex h="20vh" border="1px" justify="center" align="center">
+            <Flex h="25vh" border="1px" justify="center" align="center">
                 <Button onClick={onOpen}>Create New Deck</Button>
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -52,7 +52,7 @@ const PlaceHolder = ({decks, setDecks}) => {
 const Deck = ({deck}) => {
     const history = useHistory();
     return (
-        <Flex h="20vh" border="1px" textAlign="center" direction="column" justify="space-around">
+        <Flex h="25vh" border="1px" textAlign="center" direction="column" justify="space-around">
             <Heading>{deck.name}</Heading>
             <Text>{`${deck.numCards} ${deck.numCards === 1 ? 'card':'cards'} in deck`}</Text>
             <Flex justify="space-around">
@@ -102,9 +102,9 @@ const Decks = () => {
         })();
     }, [user.id])
     return (
-        <Flex width="100%" pt={10} justify="center">
+        <Flex width="100%" pt={5} justify="center">
             <Flex width="80%">
-                <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={10} columns={3} spacing={10} w="90%" h="80vh">
+                <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
                     {decks.slice(startIdx, startIdx+9).map(deck => <Deck key={`deck#${deck.id}`} deck={deck}/>)}
                     {extras.slice(0, (9-(decks.length-startIdx))).map((_, idx) => <PlaceHolder key={`ph${idx}`} decks={decks} setDecks={setDecks}/>)}
                 </SimpleGrid>
