@@ -1,13 +1,22 @@
-import { Box, Button, SimpleGrid, Text, Heading, Flex, Stack } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Text, Heading, Flex, useDisclosure, Modal, ModalContent, ModalOverlay} from "@chakra-ui/react";
 import React, {useState, useContext, useEffect} from "react";
 import {useHistory} from 'react-router-dom';
 import {UserContext} from "./context";
 
 const PlaceHolder = () => {
+    const {isOpen, onOpen, onClose} = useDisclosure();
     return (
-        <Flex h="20vh" border="1px" justify="center" align="center">
-            <Button>Create New Deck</Button>
-        </Flex>
+        <>
+            <Flex h="20vh" border="1px" justify="center" align="center">
+                <Button onClick={onOpen}>Create New Deck</Button>
+            </Flex>
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay/>
+                <ModalContent mx="auto" my="auto">
+                    Test
+                </ModalContent>
+            </Modal>
+        </>
     );
 }
 
