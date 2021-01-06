@@ -1,7 +1,7 @@
 import React from "react";
 
-const HomePage  = () => {
-    return <h1>test</h1>
+const HomePage  = ({user}) => {
+    return user&&<h1>{user.username}</h1>
 }
 
 export default HomePage

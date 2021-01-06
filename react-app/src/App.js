@@ -11,6 +11,7 @@ import { authenticate } from "./services/auth";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser]=useState(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
+        setUser(user);
       }
       setLoaded(true);
     })();
@@ -29,16 +31,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar setAuthenticated={setAuthenticated} />
+      <NavBar setAuthenticated={setAuthenticated} setUser={setUser} />
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
+            setUser={setUser}
           />
         </Route>
         <Route path="/sign-up" exact={true}>
-          <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+          <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={setUser}/>
         </Route>
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
           <UsersList/>
@@ -47,7 +50,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-          <HomePage />
+          <HomePage user={user}/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
