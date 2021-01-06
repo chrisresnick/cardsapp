@@ -1,7 +1,7 @@
 import { Box, Button, SimpleGrid, Heading, Text, Flex, useDisclosure, Modal, ModalContent, ModalOverlay, Input} from "@chakra-ui/react";
 import React, {useState, useEffect} from "react";
 import {Scrollbar} from "./decks";
-import {useParams, useHistory} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const PlaceHolder = ({cards, setCards, id}) => {
     const [question, setQuestion] = useState("");
@@ -56,13 +56,42 @@ const PlaceHolder = ({cards, setCards, id}) => {
 }
 
 const Card = ({card}) => {
-    const history = useHistory();
+    const [question, setQuestion] = useState(card.question);
+    const [answer, setAnswer] = useState(card.answer);
+    const {isOpen, onOpen, onClose} = useDisclosure();
+
     return (
-        <Flex h="25vh" border="1px" textAlign="center" direction="column" justify="space-around">
-            <Text>{`Question: ${card.question}`}</Text>
-            <Text>{`Answer: ${card.answer}`}</Text>
-            <Button onClick={e=>history.push(`editCard/${card.id}`)}>Edit Card</Button>
-        </Flex>
+        <>
+            <Flex h="25vh" border="1px" textAlign="center" direction="column" justify="space-around">
+                <Text>{`Question: ${card.question}`}</Text>
+                <Text>{`Answer: ${card.answer}`}</Text>
+                <Button onClick={onOpen}>Edit Card</Button>
+            </Flex>
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay/>
+                <ModalContent>
+                <Box textAlign="center" p="2">
+                        <Heading>Edit Card</Heading>
+                        <form onSubmit={editCard}>
+                            <Input
+                                placeholder="Question"
+                                onChange={e => setQuestion(e.target.value)}
+                                value={question}
+                                m="2"
+                            />
+                            <Input
+                                placeholder="Answer"
+                                onChange={e => setAnswer(e.target.value)}
+                                value={answer}
+                                m="2"
+                            />
+                            <Button w="100%" onClick={editCard}>Edit</Button>
+                        </form>
+                    </Box>
+
+                </ModalContent>
+            </Modal>
+        </>
     )
 }
 
