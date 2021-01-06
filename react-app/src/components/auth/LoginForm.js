@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
-import UserContext from "../context";
+import {UserContext} from "../context";
 
 
 const LoginForm = ({ authenticated, setAuthenticated}) => {
