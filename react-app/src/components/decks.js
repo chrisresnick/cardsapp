@@ -29,14 +29,15 @@ const PlaceHolder = ({decks, setDecks}) => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay/>
                 <ModalContent mx="auto" my="auto">
-                    <Box>
+                    <Box textAlign="center" p="2">
                         <Heading>Create New Deck</Heading>
                         <Input
                             placeholder="Deck Name"
                             onChange={e => setName(e.target.value)}
                             value={name}
+                            m="2"
                         />
-                        <Button onClick={submitDeck}>Create</Button>
+                        <Button w="100%" onClick={submitDeck}>Create</Button>
                     </Box>
                 </ModalContent>
             </Modal>
