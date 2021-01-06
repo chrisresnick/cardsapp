@@ -1,12 +1,7 @@
-import React, {useState, useEffect} from "react";
-import {useSelector} from 'react-redux';
+import React from "react";
 
 const HomePage  = () => {
-    const user = useSelector(state => state.user);
-    const [username, setUsername] = useState(user.username);
-    useEffect(e => setUsername(user.username), []);
-    console.log(user.get("username"))
-    return <h1>{username}</h1>
+    return <h1>test</h1>
 }
 
 export default HomePage
