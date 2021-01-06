@@ -6,7 +6,8 @@ import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
-import HomePage from "./components/HomePage"
+import Deck from "./components/decks";
+import { UserContext } from "./components/context";
 import { authenticate } from "./services/auth";
 
 function App() {
@@ -30,18 +31,18 @@ function App() {
   }
 
   return (
+    <UserContext.Provider value={{user, setUser}}>
     <BrowserRouter>
-      <NavBar setAuthenticated={setAuthenticated} setUser={setUser} />
+      <NavBar setAuthenticated={setAuthenticated}/>
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
-            setUser={setUser}
           />
         </Route>
         <Route path="/sign-up" exact={true}>
-          <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={setUser}/>
+          <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated}/>
         </Route>
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
           <UsersList/>
@@ -50,10 +51,11 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-          <HomePage user={user}/>
+          <Deck/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
+    </UserContext.Provider>
   );
 }
 
