@@ -52,14 +52,14 @@ const PlaceHolder = ({decks, setDecks}) => {
 const Deck = ({deck}) => {
     const history = useHistory();
     return (
-        <Box h="20vh" border="1px" textAlign="center">
+        <Flex h="20vh" border="1px" textAlign="center" direction="column" justify="space-around">
             <Heading>{deck.name}</Heading>
             <Text>{`${deck.numCards} ${deck.numCards === 1 ? 'card':'cards'} in deck`}</Text>
             <Flex justify="space-around">
                 <Button onClick={e=>history.push(`editDeck/${deck.id}`)}>Edit Deck</Button>
                 <Button onClick={e=>history.push(`studyDeck/${deck.id}`)}>Study Deck</Button>
             </Flex>
-        </Box>
+        </Flex>
     )
 }
 
@@ -104,7 +104,7 @@ const Decks = () => {
     return (
         <Flex width="100%" pt={10} justify="center">
             <Flex width="80%">
-                <SimpleGrid borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={10} columns={3} spacing={10} w="90%" h="80vh">
+                <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={10} columns={3} spacing={10} w="90%" h="80vh">
                     {decks.slice(startIdx, startIdx+9).map(deck => <Deck key={`deck#${deck.id}`} deck={deck}/>)}
                     {extras.slice(0, (9-(decks.length-startIdx))).map((_, idx) => <PlaceHolder key={`ph${idx}`} decks={decks} setDecks={setDecks}/>)}
                 </SimpleGrid>
