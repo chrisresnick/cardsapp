@@ -1,4 +1,4 @@
-import { Box, Heading, Button, Flex } from "@chakra-ui/react";
+import { Box, Heading, Button, Flex, Radio, RadioGroup, Stack, FormControl, FormLabel } from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 
@@ -7,6 +7,7 @@ const Study = () => {
     const history = useHistory();
     const [cardsToStudy, setCardsToStudy] = useState([]);
     const [showAnswer, setShowAnswer] = useState(false);
+    const [difficulty, setDifficulty] = useSate(0);
 
     const updateCards = async () => {
         let res = await fetch(deckId?`/api/deck/${deckId}/due`:"/api/cards/due");
@@ -34,7 +35,16 @@ const Study = () => {
                 {!showAnswer ?
                     <Button onClick={e => setShowAnswer(true)}>Show Answer</Button> :
                     (
-                        <Text>{cardsToStudy[0].answer}</Text>
+                        <>
+                            <Text>{cardsToStudy[0].answer}</Text>
+                            <RadioGroup onChange={setValue} value={value}>
+                                <Stack direction="row">
+                                    <Radio value="1">First</Radio>
+                                    <Radio value="2">Second</Radio>
+                                    <Radio value="3">Third</Radio>
+                                </Stack>
+                            </RadioGroup>
+                        </>
                     )
 
                 }
