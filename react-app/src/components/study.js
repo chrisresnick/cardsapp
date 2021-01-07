@@ -1,4 +1,4 @@
-import { Box, Heading, Button } from "@chakra-ui/react";
+import { Box, Heading, Button, Flex } from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 
@@ -6,6 +6,7 @@ const Study = () => {
     const {deckId} = useParams();
     const history = useHistory();
     const [cardsToStudy, setCardsToStudy] = useState([]);
+    const [showAnswer, setShowAnswer] = useState(false);
 
     const updateCards = async () => {
         let res = await fetch(deckId?`/api/deck/${deckId}/due`:"/api/cards/due");
@@ -27,7 +28,18 @@ const Study = () => {
         );
     }
     return (
-        null
+        <Flex>
+            <Text>{cardsToStudy[0].question}</Text>
+            <Flex>
+                {!showAnswer ?
+                    <Button onClick={e => setShowAnswer(true)}>Show Answer</Button> :
+                    (
+                        <Text>{cardsToStudy[0].answer}</Text>
+                    )
+
+                }
+            </Flex>
+        </Flex>
     );
 }
 
