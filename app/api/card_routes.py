@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, Card
+from app.models import db, Card, Deck
+from datetime import datetime
 
 card_routes = Blueprint('card', __name__)
 
@@ -14,3 +15,9 @@ def editCard(id):
     card.answer = request.json['answer'] or card.answer
     db.session.commit()
     return card.to_dict()
+
+
+@card_routes.route("/due")
+def getCardsDueNow():
+    cards = Card.query.join(Deck).filter(Deck.ownerId == current_user.id).filter(Card.nextShow <= datetime.now()).all()
+    return {'cards': [card.to_dict() for card in cards]}

@@ -1,9 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-import {Stack, Box, List, ListItem, Flex} from "@chakra-ui/react"
+import {Flex} from "@chakra-ui/react"
+import {useContext, useState} from "react";
+import {UserContext} from "./context";
 
-const NavBar = ({ setAuthenticated, setUser }) => {
+const NavBar = ({setAuthenticated}) => {
+
+  const {user, setUser} = useContext(UserContext);
+  const [toStudy, setToStudy] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+
   return (
       <Flex
         paddingY='2'
