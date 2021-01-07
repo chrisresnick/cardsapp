@@ -7,10 +7,10 @@ const Study = () => {
     const history = useHistory();
     const [cardsToStudy, setCardsToStudy] = useState([]);
     const [showAnswer, setShowAnswer] = useState(false);
-    const [difficulty, setDifficulty] = useState(2);
+    const [difficulty, setDifficulty] = useState("2");
 
     const updateCards = async () => {
-        let res = await fetch(deckId?`/api/deck/${deckId}/due`:"/api/cards/due");
+        let res = await fetch(deckId?`/api/decks/${deckId}/due`:"/api/cards/due");
         res = await res.json();
         if(!res.errors) setCardsToStudy(res.cards);
         else alert(res.errors[0]);
@@ -22,21 +22,21 @@ const Study = () => {
 
     const nextCard = async e => {
         e.preventDefault();
-        let res = await fetch(`api/cards/study`, {
+        let res = await fetch(`/api/cards/study`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
               },
             body: JSON.stringify({
                 cardId: cardsToStudy[0].id,
-                difficulty,
+                difficulty: Number.parseInt(difficulty),
                 deckId: deckId || "None"
             })
         });
         res = await res.json()
-        setCardsToStudy(res);
+        setCardsToStudy(res.cards);
         setShowAnswer(false);
-        setDifficulty(2);
+        setDifficulty("2");
     }
 
     if(cardsToStudy.length === 0){
@@ -48,31 +48,33 @@ const Study = () => {
         );
     }
     return (
-        <Flex>
-            <Text>{cardsToStudy[0].question}</Text>
-            <Flex>
-                {!showAnswer ?
-                    <Button onClick={e => setShowAnswer(true)}>Show Answer</Button> :
-                    (
-                        <>
-                            <Text>{cardsToStudy[0].answer}</Text>
-                            <FormControl as="fieldset">
-                                <FormLabel as="legend">How Hard was This Question</FormLabel>
-                                <RadioGroup onChange={e => setDifficulty(e.target.value)} value={difficulty}>
-                                    <Stack direction="row">
-                                        <Radio value="0">Very Easy</Radio>
-                                        <Radio value="1">Easy</Radio>
-                                        <Radio value="2">Fine</Radio>
-                                        <Radio value="3">Hard</Radio>
-                                        <Radio value="4">Very Hard</Radio>
-                                    </Stack>
-                                </RadioGroup>
+        <Flex w="100%" justify="center">
+            <Flex direction="column" mt="5" w="50vw" px="auto" align="center">
+                <Text>{`Question: ${cardsToStudy[0].question}`}</Text>
+                <Flex direction="column" align="center">
+                    {!showAnswer ?
+                        <Button onClick={e => setShowAnswer(true)}>Show Answer</Button> :
+                        (
+                            <>
+                                <Text>{`Answer: ${cardsToStudy[0].answer}`}</Text>
+                                <FormControl as="fieldset">
+                                    <FormLabel as="legend">How Hard was This Question</FormLabel>
+                                    <RadioGroup onChange={setDifficulty} value={difficulty}>
+                                        <Stack direction="row">
+                                            <Radio value={"0"}>Very Easy</Radio>
+                                            <Radio value={"1"}>Easy</Radio>
+                                            <Radio value={"2"}>Fine</Radio>
+                                            <Radio value={"3"}>Hard</Radio>
+                                            <Radio value={"4"}>Very Hard</Radio>
+                                        </Stack>
+                                    </RadioGroup>
+                                </FormControl>
                                 <Button onClick={nextCard}>Next Card</Button>
-                            </FormControl>
-                        </>
-                    )
+                            </>
+                        )
 
-                }
+                    }
+                </Flex>
             </Flex>
         </Flex>
     );

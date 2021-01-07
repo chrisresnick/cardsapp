@@ -41,4 +41,4 @@ def studyUpdate():
         card.nextShow = now + timeDelta(days=1)
     db.session.commit()
     deckId = request.json['deckId']
-    return getCardsDueNow() if deckId == 'None' else getDeckCardsDue()
+    return getCardsDueNow() if deckId == 'None' else getDeckCardsDue(deckId)

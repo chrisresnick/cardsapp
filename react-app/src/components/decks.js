@@ -57,7 +57,7 @@ const Deck = ({deck}) => {
             <Text>{`${deck.numCards} ${deck.numCards === 1 ? 'card':'cards'} in deck`}</Text>
             <Flex justify="space-around">
                 <Button onClick={e=>history.push(`editDeck/${deck.id}`)}>Edit Deck</Button>
-                <Button onClick={e=>history.push(`studyDeck/${deck.id}`)}>Study Deck</Button>
+                <Button onClick={e=>history.push(`study/${deck.id}`)}>Study Deck</Button>
             </Flex>
         </Flex>
     )
