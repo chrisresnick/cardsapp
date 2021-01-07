@@ -1,11 +1,19 @@
 import { Box, Heading } from "@chakra-ui/react";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {Heading, Box, Button} from "@chakra-ui/react";
 
 const Study = () => {
     const {deckId} = useParams();
     const history = useHistory();
+    const [cardsToStudy, setCardsToStudy] = useState([]);
+
+    const updateCards = async () => {
+        let res = await fetch(deckId?`/api/deck/${deckId}/due`:"/api/cards/due");
+        res = await res.json();
+        if(!res.errors) setCardsToStudy(res.cards);
+        else alert(res.errors[0]);
+    };
 
     if(cardsToStudy.length === 0){
         return (
