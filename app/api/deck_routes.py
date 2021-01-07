@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Deck, Card
+from datetime import datetime
 
 deck_routes = Blueprint('deck', __name__)
 
@@ -40,3 +41,9 @@ def getDeck(id):
 def getDeckCards(id):
     deck = Deck.query.get(id)
     return jsonify(deck.to_cards_dict())
+
+
+@deck_routes.route("/<int:id>/due")
+def getDeckCards(id):
+    cards = Card.query.filter(Card.deckId == id).filter(Card.nextShow <= datetime.now()).all()
+    return {'cards': [card.to_dict() for card in cards]}

@@ -1,7 +1,6 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Button } from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {Heading, Box, Button} from "@chakra-ui/react";
 
 const Study = () => {
     const {deckId} = useParams();
@@ -14,6 +13,10 @@ const Study = () => {
         if(!res.errors) setCardsToStudy(res.cards);
         else alert(res.errors[0]);
     };
+
+    useEffect(() => {
+        updateCards();
+    }, [deckId])
 
     if(cardsToStudy.length === 0){
         return (
