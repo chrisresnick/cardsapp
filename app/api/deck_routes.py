@@ -44,6 +44,6 @@ def getDeckCards(id):
 
 
 @deck_routes.route("/<int:id>/due")
-def getDeckCards(id):
+def getDeckCardsDue(id):
     cards = Card.query.filter(Card.deckId == id).filter(Card.nextShow <= datetime.now()).all()
     return {'cards': [card.to_dict() for card in cards]}
