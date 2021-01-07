@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import {Flex} from "@chakra-ui/react"
@@ -10,6 +10,10 @@ const NavBar = ({setAuthenticated}) => {
   const {user, setUser} = useContext(UserContext);
   const [toStudy, setToStudy] = useState([]);
   const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+
+  }, [user.id])
 
   return (
       <Flex

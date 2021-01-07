@@ -14,7 +14,7 @@ import { authenticate } from "./services/auth";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser]=useState(null);
+  const [user, setUser]=useState({});
   const [cardsToStudy, setCardsToStudy] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
