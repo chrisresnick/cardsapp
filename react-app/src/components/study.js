@@ -1,4 +1,4 @@
-import { Box, Heading, Button, Flex, Radio, RadioGroup, Stack, FormControl, FormLabel } from "@chakra-ui/react";
+import { Box, Heading, Button, Flex, Radio, RadioGroup, Stack, FormControl, FormLabel, Text } from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 
@@ -7,7 +7,7 @@ const Study = () => {
     const history = useHistory();
     const [cardsToStudy, setCardsToStudy] = useState([]);
     const [showAnswer, setShowAnswer] = useState(false);
-    const [difficulty, setDifficulty] = useSate(0);
+    const [difficulty, setDifficulty] = useState(2);
 
     const updateCards = async () => {
         let res = await fetch(deckId?`/api/deck/${deckId}/due`:"/api/cards/due");
@@ -19,6 +19,25 @@ const Study = () => {
     useEffect(() => {
         updateCards();
     }, [deckId])
+
+    const nextCard = async e => {
+        e.preventDefault();
+        let res = await fetch(`api/cards/study`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify({
+                cardId: cardsToStudy[0].id,
+                difficulty,
+                deckId: deckId || "None"
+            })
+        });
+        res = await res.json()
+        setCardsToStudy(res);
+        setShowAnswer(false);
+        setDifficulty(2);
+    }
 
     if(cardsToStudy.length === 0){
         return (
@@ -37,13 +56,19 @@ const Study = () => {
                     (
                         <>
                             <Text>{cardsToStudy[0].answer}</Text>
-                            <RadioGroup onChange={setValue} value={value}>
-                                <Stack direction="row">
-                                    <Radio value="1">First</Radio>
-                                    <Radio value="2">Second</Radio>
-                                    <Radio value="3">Third</Radio>
-                                </Stack>
-                            </RadioGroup>
+                            <FormControl as="fieldset">
+                                <FormLabel as="legend">How Hard was This Question</FormLabel>
+                                <RadioGroup onChange={e => setDifficulty(e.target.value)} value={difficulty}>
+                                    <Stack direction="row">
+                                        <Radio value="0">Very Easy</Radio>
+                                        <Radio value="1">Easy</Radio>
+                                        <Radio value="2">Fine</Radio>
+                                        <Radio value="3">Hard</Radio>
+                                        <Radio value="4">Very Hard</Radio>
+                                    </Stack>
+                                </RadioGroup>
+                                <Button onClick={nextCard}>Next Card</Button>
+                            </FormControl>
                         </>
                     )
 
