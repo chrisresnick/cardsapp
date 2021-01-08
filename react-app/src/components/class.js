@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent, Input, Thead, Tr, Th, Tbody, Td} from "@chakra-ui/react";
+import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent,
+        Input, Thead, Tr, Th, Tbody, Td, useToast} from "@chakra-ui/react";
 import { UserContext } from "./context";
 
 const Class = () => {
@@ -8,6 +9,7 @@ const Class = () => {
     const [enrolledClasses, setEnrolledClasses] = useState([]);
     const [className, setClassName] = useState("");
     const [key, setKey] = useState("");
+    const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { isOpen: enrollIsOpen,
             onOpen: enrollOnOpen,
@@ -28,6 +30,33 @@ const Class = () => {
     const enroll = async e => {
         e.preventDefault();
         enrollOnClose();
+        let res = await fetch("/api/classes/enroll", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify({key})
+        })
+        res = await res.json();
+        if(res.requestId) {
+            return toast({
+                title: "Request Created",
+                description: "We've sent a request to the owner of the class for you to enroll.",
+                status: "success",
+                duration: 60000,
+                isClosable: true,
+              })
+        }
+        if(res.invalidKey){
+            return toast({
+                title: "Invalid Key",
+                description: "The enrollment key you entered is invalid",
+                status: "error",
+                duration: 60000,
+                isClosable: true,
+              })
+        }
+
     }
 
     const createClass = async e => {

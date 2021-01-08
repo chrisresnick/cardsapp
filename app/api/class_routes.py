@@ -30,13 +30,14 @@ def requestEnrollment():
     if reqClass is None:
         return {"errors": ["The key your provided is invalid"],
                 "invalidKey": True}
-    request = EnrollmentRequest(studentId=current_user.id, classId=reqClass.id)
-    db.session.add(request)
+    newRequest = EnrollmentRequest(studentId=current_user.id, classId=reqClass.id)
+    db.session.add(newRequest)
+    db.session.commit()
     note = Notification(
         message=f"{current_user.username} has requested to enroll in {reqClass.name}",
         forUserId=reqClass.ownerId,
-        requestId=request.id
+        forRequestId=newRequest.id
     )
     db.session.add(note)
     db.session.commit()
-    return {"requestId": request.id}
+    return {"requestId": newRequest.id}
