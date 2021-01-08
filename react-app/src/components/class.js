@@ -7,7 +7,11 @@ const Class = () => {
     const [ownedClasses, setOwnedClasses] = useState([]);
     const [enrolledClasses, setEnrolledClasses] = useState([]);
     const [className, setClassName] = useState("");
+    const [key, setKey] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen: enrollIsOpen,
+            onOpen: enrollOnOpen,
+            onClose: enrollOnClose} = useDisclosure();
 
 
     useEffect(() => {
@@ -20,6 +24,11 @@ const Class = () => {
             console.log("after", ownedClasses);
         })()
     }, [user.id])
+
+    const enroll = async e => {
+        e.preventDefault();
+        enrollOnClose();
+    }
 
     const createClass = async e => {
         e.preventDefault();
@@ -56,7 +65,7 @@ const Class = () => {
                                 <Tbody>
                                     {ownedClasses.map(c => (
                                         <Tr>
-                                            <Td>{c.name}</Td>
+                                            <Td><b>{c.name}</b></Td>
                                             <Td>{c.numStudents}</Td>
                                             <Td>{c.key}</Td>
                                         </Tr>
@@ -69,7 +78,7 @@ const Class = () => {
                     <Flex direction="column" align="center">
                         <Heading>Classes You are Enrolled In</Heading>
                         {enrolledClasses.length ? null : <Text>You aren't erolled in any classes</Text>}
-                        <Button>Enroll in a Class</Button>
+                        <Button onClick={enrollOnOpen}>Enroll in a Class</Button>
                     </Flex>
                 </SimpleGrid>
             </Flex>
@@ -80,6 +89,16 @@ const Class = () => {
                         <Heading my="2">Create a Class</Heading>
                         <Input my="2" placeholder="class name" value={className} onChange={e=>setClassName(e.target.value)}/>
                         <Button onClick={createClass} my="2">Create</Button>
+                    </form>
+                </ModalContent>
+            </Modal>
+            <Modal isOpen={enrollIsOpen} onClose={enrollOnClose}>
+                <ModalOverlay/>
+                <ModalContent textAlign="center">
+                    <form onSubmit={enroll}>
+                        <Heading my="2">Enroll in a Class</Heading>
+                        <Input my="2" placeholder="enrollment key" value={key} onChange={e=>setKey(e.target.value)}/>
+                        <Button onClick={enroll} my="2">Request Enrollment</Button>
                     </form>
                 </ModalContent>
             </Modal>
