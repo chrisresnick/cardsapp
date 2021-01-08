@@ -41,10 +41,10 @@ const Study = () => {
 
     if(cardsToStudy.length === 0){
         return (
-            <Box>
-                <Heading>You're done studying all your cards!</Heading>
+            <Flex direction="column" align="center">
+                <Heading my={5}>You're done studying all your cards!</Heading>
                 <Button onClick={e=>history.push("/")}>Create new Cards</Button>
-            </Box>
+            </Flex>
         );
     }
     return (
