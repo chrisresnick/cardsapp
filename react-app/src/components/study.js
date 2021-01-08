@@ -50,15 +50,15 @@ const Study = () => {
     return (
         <Flex w="100%" justify="center">
             <Flex direction="column" mt="5" w="50vw" px="auto" align="center">
-                <Text>{`Question: ${cardsToStudy[0].question}`}</Text>
+                <Text><b>{`Question: `}</b>{cardsToStudy[0].question}`</Text>
                 <Flex direction="column" align="center">
                     {!showAnswer ?
                         <Button onClick={e => setShowAnswer(true)}>Show Answer</Button> :
                         (
                             <>
-                                <Text>{`Answer: ${cardsToStudy[0].answer}`}</Text>
-                                <FormControl as="fieldset">
-                                    <FormLabel as="legend">How Hard was This Question</FormLabel>
+                                <Text><b>{`Answer: `}</b>{cardsToStudy[0].answer}</Text>
+                                <FormControl>
+                                    <Heading textAlign="center" as="h3" fontSize={15}>How Hard was This Question?</Heading>
                                     <RadioGroup onChange={setDifficulty} value={difficulty}>
                                         <Stack direction="row">
                                             <Radio value={"0"}>Very Easy</Radio>
