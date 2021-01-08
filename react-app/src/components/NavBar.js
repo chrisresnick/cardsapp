@@ -18,14 +18,14 @@ const NavBar = ({setAuthenticated}) => {
     setNotifications([]);
   }
 
-  useEffect(() => {
-    if(!user.id){
-      setToStudy(0);
-      setNotifications([])
-    }
-    let interval = user.id && setInterval(updateBar, 1000);
-    return interval && (() => clearInterval(interval));
-  }, [user.id])
+  // useEffect(() => {
+  //   if(!user.id){
+  //     setToStudy(0);
+  //     setNotifications([])
+  //   }
+  //   let interval = user.id && setInterval(updateBar, 1000);
+  //   return interval && (() => clearInterval(interval));
+  // }, [user.id])
 
   return (
       <Flex

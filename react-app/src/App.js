@@ -9,6 +9,7 @@ import User from "./components/User";
 import Decks from "./components/decks";
 import Cards from "./components/cards";
 import Study from "./components/study";
+import Class from "./components/class";
 import { UserContext, CardsToStudyContext } from "./components/context";
 import { authenticate } from "./services/auth";
 
@@ -65,6 +66,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/study/:deckId" exact={true} authenticated={authenticated}>
               <Study/>
+            </ProtectedRoute>
+            <ProtectedRoute path="/classes/" exact={true} authenticated={authenticated}>
+              <Class/>
             </ProtectedRoute>
           </Switch>
         </BrowserRouter>
