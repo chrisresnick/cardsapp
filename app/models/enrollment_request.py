@@ -7,5 +7,5 @@ class EnrollmentRequest(db.Model):
     classId = db.Column(db.Integer, db.ForeignKey("classes.id"))
     studentId = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    student = db.relationship("Users", backref="requests")
+    student = db.relationship("User", backref="requests")
     class_ = db.relationship("Class", backref="requests")

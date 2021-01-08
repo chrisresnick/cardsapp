@@ -8,7 +8,15 @@ class Class(db.Model):
     ownerId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     owner = db.relationship("User", back_populates="classesOwned")
-    students = db.relationship("User", secondary="enrollments", back_populates="classesEnrolled" )
+    students = db.relationship("User", secondary="enrollments", back_populates="classesEnrolled")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.id,
+            "ownerId": self.ownerId,
+            "numStudents": len(self.students)
+        }
 
 
 enrollment = db.Table(

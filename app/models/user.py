@@ -29,7 +29,6 @@ class User(db.Model, UserMixin):
   def check_password(self, password):
     return check_password_hash(self.password, password)
 
-
   def to_dict(self):
     return {
       "id": self.id,
@@ -39,4 +38,10 @@ class User(db.Model, UserMixin):
   def to_deck_list(self):
     return {
       "decks": [deck.to_dict() for deck in self.decks]
+    }
+
+  def to_classes_list(self):
+    return {
+      'owned': [c.to_dict() for c in self.classesOwned],
+      'enrolled': [c.to_dict() for c in self.classesEnrolled]
     }
