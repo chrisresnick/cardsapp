@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent, Input, Thead, Tr, Th} from "@chakra-ui/react";
+import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent, Input, Thead, Tr, Th, Tbody, Td} from "@chakra-ui/react";
 import { UserContext } from "./context";
 
 const Class = () => {
@@ -48,9 +48,20 @@ const Class = () => {
                             <Table>
                                 <Thead>
                                     <Tr>
-                                        <Th></Th>
+                                        <Th>Name</Th>
+                                        <Th>Number of Students</Th>
+                                        <Th>Enrollment Key</Th>
                                     </Tr>
                                 </Thead>
+                                <Tbody>
+                                    {ownedClasses.map(c => (
+                                        <Tr>
+                                            <Td>{c.name}</Td>
+                                            <Td>{c.numStudents}</Td>
+                                            <Td>{c.key}</Td>
+                                        </Tr>
+                                    ))}
+                                </Tbody>
                             </Table>
                         ) : <Text>You don't own any classes</Text>}
                         <Button onClick={onOpen}>Create a Class</Button>
