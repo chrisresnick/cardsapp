@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
 
+  notifications = db.relationship("Notification", back_populates="user")
   decks = db.relationship("Deck", back_populates="user")
   classesOwned = db.relationship("Class", back_populates="owner")
   classesEnrolled = db.relationship("Class", secondary="enrollments", back_populates="students")

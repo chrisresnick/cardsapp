@@ -8,7 +8,7 @@ class Class(db.Model):
     ownerId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     owner = db.relationship("User", back_populates="classesOwned")
-    students = db.relationship("User", secondary="enrollment", back_populates="classesEnrolled" )
+    students = db.relationship("User", secondary="enrollments", back_populates="classesEnrolled" )
 
 
 enrollment = db.Table(

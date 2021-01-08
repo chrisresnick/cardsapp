@@ -52,11 +52,14 @@
 
     - Notification
         - ID - Serial
-        - Message - String
+        - Message - Text
+        - forUserId - Integer, indexed, foreignKey => user
+        - forReqestId - Integer, foreignKey => request
+        - noteType - enum("request", "approve", "deny")
         - Seen - BOOL
         - CreatedAT - DateTime
 
-    - JoinClassRequest
+    - enrollmentRequest
         - ID - Serial
         - User - INT Foreign Key => User
         - Class - INt Foreign Key => Class
