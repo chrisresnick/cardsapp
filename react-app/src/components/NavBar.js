@@ -50,7 +50,9 @@ const NavBar = ({setAuthenticated}) => {
                     Sign Up
                   </NavLink>
                 </>
-              ) : null
+              ) : (
+                null
+              )
             }
             <NavLink to="/users" exact={true} activeClassName="active">
               Users

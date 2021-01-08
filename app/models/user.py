@@ -11,6 +11,8 @@ class User(db.Model, UserMixin):
   hashed_password = db.Column(db.String(255), nullable = False)
 
   decks = db.relationship("Deck", back_populates="user")
+  classesOwned = db.relationship("Class", back_populates="owner")
+  classesEnrolled = db.relationship("Class", secondary="enrollments", back_populates="students")
 
 
   @property
