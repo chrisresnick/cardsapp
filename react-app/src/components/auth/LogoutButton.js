@@ -7,7 +7,7 @@ const LogoutButton = ({setAuthenticated}) => {
   const onLogout = async (e) => {
     await logout();
     setAuthenticated(false);
-    setUser(null);
+    setUser({});
   };
 
   return <button onClick={onLogout}>Logout</button>;

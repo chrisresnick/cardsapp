@@ -69,7 +69,7 @@ export const Scrollbar = ({startIdx, setStartIdx, lim}) => {
             direction="column"
             borderTop="1px" borderRight="1px" borderBottom="1px"
             borderColor="gray.300"
-            h="80vh"
+            h="85vh"
             justify="space-between"
         >
             <IconButton

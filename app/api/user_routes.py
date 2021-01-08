@@ -27,7 +27,7 @@ def getUserDecks(id):
     return user.to_deck_list()
 
 
-@user_routes('/<int:id>/navnums')
+@user_routes.route('/<int:id>/navnums')
 def getNavNums(id):
-    numCardsToStudy = Card.query().join(Deck).filter(Deck.ownerId == id).filter(Card.nextShow <= datetime.now()).count()
+    numCardsToStudy = Card.query.join(Deck).filter(Deck.ownerId == id).filter(Card.nextShow <= datetime.now()).count()
     return {"numCardsToStudy": numCardsToStudy}
