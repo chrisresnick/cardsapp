@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-import {Flex, Text} from "@chakra-ui/react"
+import {Button, Flex, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react"
+import {ChevronDownIcon} from "@chakra-ui/icons"
 import {useContext, useState} from "react";
 import {UserContext} from "./context";
+import Note from "./note";
 
 const NavBar = ({setAuthenticated}) => {
 
@@ -15,17 +17,17 @@ const NavBar = ({setAuthenticated}) => {
     let res = await fetch(`/api/users/${user.id}/navnums`);
     res = await res.json();
     setToStudy(res.numCardsToStudy);
-    setNotifications([]);
+    setNotifications(res.notes);
   }
 
-  // useEffect(() => {
-  //   if(!user.id){
-  //     setToStudy(0);
-  //     setNotifications([])
-  //   }
-  //   let interval = user.id && setInterval(updateBar, 1000);
-  //   return interval && (() => clearInterval(interval));
-  // }, [user.id])
+  useEffect(() => {
+    if(!user.id){
+      setToStudy(0);
+      setNotifications([])
+    }
+    let interval = user.id && setInterval(updateBar, 1000);
+    return interval && (() => clearInterval(interval));
+  }, [user.id])
 
   return (
       <Flex
@@ -60,9 +62,23 @@ const NavBar = ({setAuthenticated}) => {
             <LogoutButton setAuthenticated={setAuthenticated}/>
           </Flex>
           {toStudy ? (
-            <NavLink to="/study" exact={true} activeClassName="active">
-              {`Study ${toStudy}${toStudy ===1?' card':" cards"}`}
-            </NavLink>
+            <>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
+                  {`${notifications.length} notifications`}
+                </MenuButton>
+                <MenuList>
+                  {notifications.map(note => (
+                    <MenuItem>
+                      <Note note={note} />
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
+              <NavLink to="/study" exact={true} activeClassName="active">
+                {`Study ${toStudy}${toStudy ===1?' card':" cards"}`}
+              </NavLink>
+            </>
           ): <Text>No cards due.</Text>}
 
       </Flex>

@@ -32,6 +32,6 @@ def getNavNums(id):
     numCardsToStudy = Card.query.join(Deck).filter(Deck.ownerId == id).filter(Card.nextShow <= datetime.now()).count()
     notes = Notification.query.filter(Notification.forUserId == id).all()
     return {
-        "numCardsToStudy": numCardsToStudy
+        "numCardsToStudy": numCardsToStudy,
         "notes": [note.to_dict() for note in notes]
     }
