@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User, Card, Deck
+from app.models import User, Card, Deck, Notification
 from datetime import datetime
 
 user_routes = Blueprint('users', __name__)
@@ -30,4 +30,8 @@ def getUserDecks(id):
 @user_routes.route('/<int:id>/navnums')
 def getNavNums(id):
     numCardsToStudy = Card.query.join(Deck).filter(Deck.ownerId == id).filter(Card.nextShow <= datetime.now()).count()
-    return {"numCardsToStudy": numCardsToStudy}
+    notes = Notification.query.filter(Notification.forUserId == id).all()
+    return {
+        "numCardsToStudy": numCardsToStudy
+        "notes": [note.to_dict() for note in notes]
+    }

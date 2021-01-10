@@ -14,3 +14,12 @@ class Notification(db.Model):
 
     user = db.relationship("User", back_populates="notifications")
     request = db.relationship("EnrollmentRequest", backref="notification")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "message": self.message,
+            "noteType": self.noteType,
+            "seen": self.seen,
+            "createdAt": self.createdAt
+        }

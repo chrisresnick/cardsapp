@@ -35,7 +35,7 @@ const Class = () => {
             headers: {
                 'Content-Type': 'application/json',
               },
-            body: JSON.stringify({key})
+            body: JSON.stringify({key: key.trim()})
         })
         res = await res.json();
         if(res.requestId) {
