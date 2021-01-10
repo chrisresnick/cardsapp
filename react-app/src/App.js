@@ -10,13 +10,13 @@ import Decks from "./components/decks";
 import Cards from "./components/cards";
 import Study from "./components/study";
 import Class from "./components/class";
-import { UserContext, CardsToStudyContext } from "./components/context";
+import { UserContext, EnrolledClassesContext } from "./components/context";
 import { authenticate } from "./services/auth";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser]=useState({});
-  const [cardsToStudy, setCardsToStudy] = useState([]);
+  const [enrolledClasses, setEnrolledClasses] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <UserContext.Provider value={{user, setUser}}>
-      <CardsToStudyContext.Provider value={{cardsToStudy, setCardsToStudy}}>
+      <EnrolledClassesContext.Provider value={{enrolledClasses, setEnrolledClasses}}>
         <BrowserRouter>
           <NavBar setAuthenticated={setAuthenticated}/>
           <Switch>
@@ -72,7 +72,7 @@ function App() {
             </ProtectedRoute>
           </Switch>
         </BrowserRouter>
-      </CardsToStudyContext.Provider>
+      </EnrolledClassesContext.Provider>
     </UserContext.Provider>
   );
 }

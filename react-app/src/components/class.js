@@ -1,12 +1,12 @@
 import React, {useContext, useState, useEffect} from "react";
 import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent,
         Input, Thead, Tr, Th, Tbody, Td, useToast} from "@chakra-ui/react";
-import { UserContext } from "./context";
+import { UserContext, EnrolledClassesContext } from "./context";
 
 const Class = () => {
     const {user} = useContext(UserContext);
     const [ownedClasses, setOwnedClasses] = useState([]);
-    const [enrolledClasses, setEnrolledClasses] = useState([]);
+    const {enrolledClasses, setEnrolledClasses}= useContext(EnrolledClassesContext);
     const [className, setClassName] = useState("");
     const [key, setKey] = useState("");
     const toast = useToast();
@@ -79,7 +79,7 @@ const Class = () => {
     return (
         <>
             <Flex w="100%" justify="center">
-                <SimpleGrid columns={2}>
+                <SimpleGrid columns={2} spacingX={20}>
                     <Flex direction="column" align="center">
                         <Heading>Classes You Own</Heading>
                         {ownedClasses.length ? (
@@ -106,7 +106,24 @@ const Class = () => {
                     </Flex>
                     <Flex direction="column" align="center">
                         <Heading>Classes You are Enrolled In</Heading>
-                        {enrolledClasses.length ? null : <Text>You aren't erolled in any classes</Text>}
+                        {enrolledClasses.length ? (
+                            <Table>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Class</Th>
+                                        <Th>Number of Students</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {enrolledClasses.map(c => (
+                                        <Tr>
+                                            <Td><b>{c.name}</b></Td>
+                                            <Td>{c.numStudents}</Td>
+                                        </Tr>
+                                    ))}
+                                </Tbody>
+                            </Table>
+                        ) : <Text>You aren't erolled in any classes</Text>}
                         <Button onClick={enrollOnOpen}>Enroll in a Class</Button>
                     </Flex>
                 </SimpleGrid>

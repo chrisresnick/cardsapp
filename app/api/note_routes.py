@@ -16,6 +16,26 @@ def deleteNote(id):
     return {"deleted": id}
 
 
+@note_routes.route("/<int:id>/deny", methods=["POST"])
+@login_required
+def denyRequest(id):
+    note = Notification.query.get(id)
+    if current_user.id != note.forUserId:
+        return {"errors": ["You cannot respond to someone else's note"]}
+    req = note.request
+    newNote = Notification(
+        forUserId=req.student.id,
+        message=f'One of your enrollment requests has been rejected',
+        noteType="deny"
+    )
+    db.session.delete(note)
+    db.session.delete(req)
+    db.session.add(newNote)
+    db.session.commit()
+    return {"denyed": id}
+
+
+
 
 @note_routes.route("/<int:id>/accept", methods=["POST"])
 @login_required

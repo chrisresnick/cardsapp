@@ -1,14 +1,21 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Stack, Text, Flex, Button, useToast} from "@chakra-ui/react";
+import {EnrolledClassesContext} from "./context";
 
 const Note = ({note}) => {
     const toast = useToast();
+    const {setEnrolledClasses} = useContext(EnrolledClassesContext)
 
     const dismiss = async e => {
         e.preventDefault();
         await fetch(`/api/notes/${note.id}`, {
             method:"DELETE"
         })
+        if(note.noteType == "approve") {
+            let res =  await fetch(`/api/classes/`);
+            res = await res.json();
+            setEnrolledClasses(res.enrolled);
+        }
     }
 
     const approve = async e => {
@@ -26,7 +33,14 @@ const Note = ({note}) => {
                 isClosable: true
             }));
         }
+    }
 
+    const deny = async e => {
+        e.preventDefault();
+        let res = await fetch(`/api/notes/${note.id}/deny`, {
+            method: "POST"
+        });
+        res = await res.json();
     }
 
     if(note.noteType === "request"){
@@ -35,7 +49,7 @@ const Note = ({note}) => {
                 <Text>{note.message}</Text>
                 <Flex justify="space-between">
                     <Button onClick={approve} backgroundColor="green.500">Approve</Button>
-                    <Button backgroundColor="red.500">Deny</Button>
+                    <Button onClick={deny} backgroundColor="red.500">Deny</Button>
                 </Flex>
             </Stack>
         )
