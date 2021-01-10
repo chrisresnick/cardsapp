@@ -35,8 +35,6 @@ def denyRequest(id):
     return {"denyed": id}
 
 
-
-
 @note_routes.route("/<int:id>/accept", methods=["POST"])
 @login_required
 def acceptRequest(id):

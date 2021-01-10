@@ -57,14 +57,11 @@ const NavBar = ({setAuthenticated}) => {
                 null
               )
             }
-            <NavLink to="/users" exact={true} activeClassName="active">
-              Users
+            <NavLink to="/classes" exact={true} activeClassName="active">
+              Classes
             </NavLink>
             <LogoutButton setAuthenticated={setAuthenticated}/>
-          </Flex>
-          {toStudy ? (
-            <>
-              <Menu>
+            <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
                   {`${notifications.length} notifications`}
                 </MenuButton>
@@ -75,7 +72,10 @@ const NavBar = ({setAuthenticated}) => {
                     </MenuItem>
                   ))}
                 </MenuList>
-              </Menu>
+            </Menu>
+          </Flex>
+          {toStudy ? (
+            <>
               <NavLink to="/study" exact={true} activeClassName="active">
                 {`Study ${toStudy}${toStudy ===1?' card':" cards"}`}
               </NavLink>
