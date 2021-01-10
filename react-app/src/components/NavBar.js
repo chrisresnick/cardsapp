@@ -61,7 +61,8 @@ const NavBar = ({setAuthenticated}) => {
               Classes
             </NavLink>
             <LogoutButton setAuthenticated={setAuthenticated}/>
-            <Menu>
+          </Flex>
+          <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
                   {`${notifications.length} notifications`}
                 </MenuButton>
@@ -73,7 +74,6 @@ const NavBar = ({setAuthenticated}) => {
                   ))}
                 </MenuList>
             </Menu>
-          </Flex>
           {toStudy ? (
             <>
               <NavLink to="/study" exact={true} activeClassName="active">
