@@ -5,7 +5,19 @@ from app.models import Class, User, EnrollmentRequest, Notification, db
 note_routes = Blueprint('note', __name__)
 
 
-@note_routes.route("/<int:id>/accept")
+@note_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def deleteNote(id):
+    note = Notification.query.get(id)
+    if current_user.id != note.forUserId:
+        return {"errors": ["You cannot delete someone else's note"]}
+    db.session.delete(note)
+    db.session.commit()
+    return {"deleted": id}
+
+
+
+@note_routes.route("/<int:id>/accept", methods=["POST"])
 @login_required
 def acceptRequest(id):
     note = Notification.query.get(id)
@@ -18,7 +30,7 @@ def acceptRequest(id):
     addedNote = Notification(
         forUserId=student.id,
         message=f'You have been added to {class_.name}',
-        noteType="approve" )
+        noteType="approve")
     db.session.add(addedNote)
     db.session.delete(note)
     db.session.delete(req)

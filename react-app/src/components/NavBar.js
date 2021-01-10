@@ -37,8 +37,9 @@ const NavBar = ({setAuthenticated}) => {
         flexDir="row"
         width="100%"
         justify="space-between"
+        align="center"
         outline="1px solid black">
-          <Flex w="33%" justify="space-around">
+          <Flex w="33%" justify="space-around" align="center">
             <NavLink to="/" exact={true} activeClassName="active">
               Home
             </NavLink>
