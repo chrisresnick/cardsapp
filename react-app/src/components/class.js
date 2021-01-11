@@ -28,7 +28,7 @@ const OwnedClass = ({c, decks}) => {
         if(res.success){
             toast({
                 title: "Sucess",
-                description: "Deck published",
+                description: "The deck you requested has been published",
                 status: "success",
                 duration: 9000,
                 isClosable: true
