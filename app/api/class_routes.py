@@ -41,3 +41,15 @@ def requestEnrollment():
     db.session.add(note)
     db.session.commit()
     return {"requestId": newRequest.id}
+
+
+@class_routes.route("<int:id>/publish", methods=["POST"])
+@login_required
+def publish(id):
+    class_ = Class.query.get(id)
+    if class_.ownerId != current_user.id:
+        return {"errors": ["You can't publish to a class you don't own!"]}
+    deckId = request.json["deckId"]
+    deck = Deck.query.get(deckId)
+    for student in class_.students:
+        newDeck = Deck(name=deck.name, ownerId=student.id)
