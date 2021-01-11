@@ -43,5 +43,6 @@ class User(db.Model, UserMixin):
   def to_classes_list(self):
     return {
       'owned': [c.to_dict() for c in self.classesOwned],
-      'enrolled': [c.to_dict() for c in self.classesEnrolled]
+      'enrolled': [c.to_dict() for c in self.classesEnrolled],
+      'decks': [deck.to_dict() for deck in self.decks]
     }

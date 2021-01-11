@@ -9,7 +9,7 @@ import Note from "./note";
 
 const NavBar = ({setAuthenticated}) => {
 
-  const {user, setUser} = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const [toStudy, setToStudy] = useState(0);
   const [notifications, setNotifications] = useState([]);
 

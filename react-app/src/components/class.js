@@ -1,12 +1,40 @@
 import React, {useContext, useState, useEffect} from "react";
 import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent,
-        Input, Thead, Tr, Th, Tbody, Td, useToast} from "@chakra-ui/react";
+        Input, Thead, Tr, Th, Tbody, Td, useToast, useClipboard, IconButton, Select} from "@chakra-ui/react";
+import {CopyIcon} from "@chakra-ui/icons"
 import { UserContext, EnrolledClassesContext } from "./context";
+
+const OwnedClass = ({c, decks}) => {
+    const {onCopy} = useClipboard(c.key)
+    return (
+        <Tr>
+            <Td><b>{c.name}</b></Td>
+            <Td>{c.numStudents}</Td>
+            <Td>
+                <Flex direction="row" align="center">
+                    <Text isTruncated maxW="5vw">{c.key}</Text>
+                    <IconButton h={5} onClick={onCopy} aria-label="Copy Class Key" icon={<CopyIcon w={3} h={3}/>}/>
+                </Flex>
+            </Td>
+            <Td>
+                <Flex>
+                    <Select placeholder="choose a deck">
+                        {decks.map((deck,idx) => (
+                            <option value={deck.id} key={deck.id}>{deck.name}</option>
+                        ))}
+                    </Select>
+                    <Button>Publish</Button>
+                </Flex>
+            </Td>
+        </Tr>
+    )
+}
 
 const Class = () => {
     const {user} = useContext(UserContext);
     const [ownedClasses, setOwnedClasses] = useState([]);
-    const {enrolledClasses, setEnrolledClasses}= useContext(EnrolledClassesContext);
+    const {enrolledClasses, setEnrolledClasses}=useContext(EnrolledClassesContext);
+    const [decks, setDecks] = useState([]);
     const [className, setClassName] = useState("");
     const [key, setKey] = useState("");
     const toast = useToast();
@@ -18,12 +46,11 @@ const Class = () => {
 
     useEffect(() => {
         (async () => {
-            console.log("before", ownedClasses);
             let res = await fetch("/api/classes/");
             res = await res.json();
             setOwnedClasses(res.owned);
             setEnrolledClasses(res.enrolled);
-            console.log("after", ownedClasses);
+            setDecks(res.decks);
         })()
     }, [user.id])
 
@@ -89,16 +116,11 @@ const Class = () => {
                                         <Th>Name</Th>
                                         <Th>Number of Students</Th>
                                         <Th>Enrollment Key</Th>
+                                        <Th>Publish Deck</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    {ownedClasses.map(c => (
-                                        <Tr>
-                                            <Td><b>{c.name}</b></Td>
-                                            <Td>{c.numStudents}</Td>
-                                            <Td>{c.key}</Td>
-                                        </Tr>
-                                    ))}
+                                    {ownedClasses.map(c => <OwnedClass c={c} decks={decks}/>)}
                                 </Tbody>
                             </Table>
                         ) : <Text>You don't own any classes</Text>}
