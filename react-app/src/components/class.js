@@ -6,6 +6,37 @@ import { UserContext, EnrolledClassesContext } from "./context";
 
 const OwnedClass = ({c, decks}) => {
     const {onCopy} = useClipboard(c.key)
+    const [deckId, setDeckId] = useState();
+    const toast = useToast();
+
+    const publish = async () => {
+        if(!deckId) return toast({
+            title: "Error",
+            description: "You must choose a deck to publish",
+            status: "error",
+            duration: 9000,
+            isClosable: true
+        })
+        let res = await fetch(`/api/classes/${c.id}/publish`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify({deckId})
+        })
+        res = await res.json();
+        if(res.success){
+            toast({
+                title: "Sucess",
+                description: "Deck published",
+                status: "success",
+                duration: 9000,
+                isClosable: true
+            })
+        }
+
+    }
+
     return (
         <Tr>
             <Td><b>{c.name}</b></Td>
@@ -18,12 +49,16 @@ const OwnedClass = ({c, decks}) => {
             </Td>
             <Td>
                 <Flex>
-                    <Select placeholder="choose a deck">
-                        {decks.map((deck,idx) => (
+                    <Select
+                        value={deckId}
+                        onChange={e=>setDeckId(e.target.value)}
+                        placeholder="choose a deck"
+                    >
+                        {decks.map((deck) => (
                             <option value={deck.id} key={deck.id}>{deck.name}</option>
                         ))}
                     </Select>
-                    <Button>Publish</Button>
+                    <Button onClick={publish}>Publish</Button>
                 </Flex>
             </Td>
         </Tr>
