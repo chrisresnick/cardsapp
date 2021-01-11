@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Class, User, EnrollmentRequest, Notification, db
+from app.models import Class, User, EnrollmentRequest, Notification, Card db
 
 
 class_routes = Blueprint('classes', __name__)
@@ -52,4 +52,15 @@ def publish(id):
     deckId = request.json["deckId"]
     deck = Deck.query.get(deckId)
     for student in class_.students:
-        newDeck = Deck(name=deck.name, ownerId=student.id)
+        newDeck = Deck(
+            name=deck.name,
+            ownerId=student.id
+            classId=class_.id
+        )
+        for card in deck.cards:
+            newDeck.cards.append(Card(
+                question=card.question,
+                answer=card.answer
+            ))
+        student.decks.append(newDeck)
+    return {"success": True}
