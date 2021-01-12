@@ -36,9 +36,9 @@ def studyUpdate():
     elif difficulty == 2:
         card.nextShow = now + timedelta(minutes=10)
     elif difficulty == 1:
-        card.nextShow = now + timeDelta(hours=1)
+        card.nextShow = now + timedelta(hours=1)
     else:
-        card.nextShow = now + timeDelta(days=1)
+        card.nextShow = now + timedelta(days=1)
     db.session.commit()
     deckId = request.json['deckId']
     return getCardsDueNow() if deckId == 'None' else getDeckCardsDue(deckId)
