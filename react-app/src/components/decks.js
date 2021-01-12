@@ -24,8 +24,14 @@ const PlaceHolder = ({decks, setDecks}) => {
     }
     return (
         <>
-            <Flex h="25vh" border="1px" justify="center" align="center">
-                <Button onClick={onOpen}>Create New Deck</Button>
+            <Flex backgroundColor="blue.50" h="25vh" border="1px" justify="center" align="center">
+                <Button
+                    backgroundColor="black"
+                    color="white"
+                    onClick={onOpen}
+                >
+                        Create New Deck
+                    </Button>
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay/>
@@ -52,12 +58,18 @@ const PlaceHolder = ({decks, setDecks}) => {
 const Deck = ({deck}) => {
     const history = useHistory();
     return (
-        <Flex h="25vh" border="1px" textAlign="center" direction="column" justify="space-around">
+        <Flex h="25vh" border="1px" backgroundColor="blue.50" textAlign="center" direction="column" justify="space-around">
             <Heading>{deck.name}</Heading>
             <Text>{`${deck.numCards} ${deck.numCards === 1 ? 'card':'cards'} in deck`}</Text>
             <Flex justify="space-around">
-                <Button onClick={e=>history.push(`editDeck/${deck.id}`)}>Edit Deck</Button>
-                <Button onClick={e=>history.push(`study/${deck.id}`)}>Study Deck</Button>
+                <Button
+                    backgroundColor="black"
+                    color="white"
+                    onClick={e=>history.push(`editDeck/${deck.id}`)}>Edit Deck</Button>
+                <Button
+                    backgroundColor="black"
+                    color="white"
+                    onClick={e=>history.push(`study/${deck.id}`)}>Study Deck</Button>
             </Flex>
         </Flex>
     )
@@ -82,7 +94,7 @@ export const Scrollbar = ({startIdx, setStartIdx, lim}) => {
                 onClick={e=>setStartIdx(startIdx+3)}
                 aria-label="scrool down"
                 icon={<ArrowDownIcon/>}
-                disabled={startIdx > lim}
+                disabled={startIdx > lim-9}
             />
         </Flex>
     );
