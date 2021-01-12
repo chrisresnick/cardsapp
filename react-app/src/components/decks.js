@@ -2,7 +2,7 @@ import { Box, IconButton, Button, SimpleGrid, Text, Heading, Flex, useDisclosure
 import {ArrowUpIcon, ArrowDownIcon} from '@chakra-ui/icons';
 import React, {useState, useContext, useEffect} from "react";
 import {useHistory} from 'react-router-dom';
-import {UserContext} from "./context";
+import {UserContext, DecksContext} from "./context";
 
 const PlaceHolder = ({decks, setDecks}) => {
     const [name, setName] = useState("");
@@ -90,8 +90,8 @@ export const Scrollbar = ({startIdx, setStartIdx, lim}) => {
 };
 
 const Decks = () => {
-    const {user, setUser} = useContext(UserContext);
-    const [decks, setDecks] = useState([]);
+    const {user} = useContext(UserContext);
+    const {decks, setDecks} = useContext(DecksContext);
     const [startIdx, setStartIdx] = useState(0);
     const extras = [0,1,2,3,4,5,6,7,8]
     useEffect(() => {

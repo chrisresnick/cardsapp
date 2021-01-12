@@ -63,5 +63,11 @@ def publish(id):
                 answer=card.answer
             ))
         student.decks.append(newDeck)
+        student.notifications.append(Notification(
+            message=f'{newDeck.name} has been published to {class_.name}',
+            forUserId=student.id,
+            forDeckId=newDeck.id,
+            noteType="deck"
+        ))
         db.session.commit()
     return {"success": True}

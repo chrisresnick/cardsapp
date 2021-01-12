@@ -8,7 +8,8 @@ class Notification(db.Model):
     message = db.Column(db.Text, nullable=False)
     forUserId = db.Column(db.Integer, db.ForeignKey("users.id"), index=True)
     forRequestId = db.Column(db.Integer, db.ForeignKey("enrollment_requests.id"))
-    noteType = db.Column(db.Enum("request", "approve", "deny", name="typeName"), default="request")
+    forDeckId = db.Column(db.Integer, db.ForeignKey("decks.id"))
+    noteType = db.Column(db.Enum("request", "approve", "deny", "deck", name="noteType"), default="request")
     seen = db.Column(db.Boolean, default=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
 

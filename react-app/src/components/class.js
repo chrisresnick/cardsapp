@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from "react";
 import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent,
         Input, Thead, Tr, Th, Tbody, Td, useToast, useClipboard, IconButton, Select} from "@chakra-ui/react";
 import {CopyIcon} from "@chakra-ui/icons"
-import { UserContext, EnrolledClassesContext } from "./context";
+import { UserContext, EnrolledClassesContext, DecksContext } from "./context";
 
 const OwnedClass = ({c, decks}) => {
     const {onCopy} = useClipboard(c.key)
@@ -69,7 +69,7 @@ const Class = () => {
     const {user} = useContext(UserContext);
     const [ownedClasses, setOwnedClasses] = useState([]);
     const {enrolledClasses, setEnrolledClasses}=useContext(EnrolledClassesContext);
-    const [decks, setDecks] = useState([]);
+    const {decks, setDecks} = useContext(DecksContext);
     const [className, setClassName] = useState("");
     const [key, setKey] = useState("");
     const toast = useToast();

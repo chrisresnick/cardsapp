@@ -1,10 +1,12 @@
 import React, {useContext} from "react";
-import {Stack, Text, Flex, Button, useToast} from "@chakra-ui/react";
-import {EnrolledClassesContext} from "./context";
+import {Stack, Text, Flex, Button, useToast, Heading} from "@chakra-ui/react";
+import {EnrolledClassesContext, DecksContext, UserContext} from "./context";
 
 const Note = ({note}) => {
     const toast = useToast();
-    const {setEnrolledClasses} = useContext(EnrolledClassesContext)
+    const {setEnrolledClasses} = useContext(EnrolledClassesContext);
+    const {setDecks} = useContext(DecksContext);
+    const {user} = useContext(UserContext);
 
     const dismiss = async e => {
         e.preventDefault();
@@ -15,6 +17,11 @@ const Note = ({note}) => {
             let res =  await fetch(`/api/classes/`);
             res = await res.json();
             setEnrolledClasses(res.enrolled);
+        }
+        if(note.noteType == "deck") {
+            let res = await fetch(`/api/users/${user.id}/decks`);
+            res = await res.json();
+            setDecks(res.decks)
         }
     }
 
@@ -54,7 +61,7 @@ const Note = ({note}) => {
             </Stack>
         )
     }
-    if(note.noteType === "approve" || note.noteType === "deny"){
+    if(note.noteType === "approve" || note.noteType === "deny" || note.noteType === "deck"){
         return (
             <Stack direction="column">
                 <Text>{note.message}</Text>
@@ -65,7 +72,7 @@ const Note = ({note}) => {
         )
     }
     return (
-        null
+        <Heading>Unrecognized Note Type!!!!</Heading>
     );
 
 
