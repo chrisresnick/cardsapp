@@ -7,7 +7,7 @@ class Class(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     ownerId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    key = db.Column(db.String(36), unique=True, index=True, default=uuid4())
+    key = db.Column(db.String(36), unique=True, index=True, default=uuid4)
 
     owner = db.relationship("User", back_populates="classesOwned")
     students = db.relationship("User", secondary="enrollments", back_populates="classesEnrolled")

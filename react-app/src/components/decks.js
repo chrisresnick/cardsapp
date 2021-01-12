@@ -26,8 +26,7 @@ const PlaceHolder = ({decks, setDecks}) => {
         <>
             <Flex backgroundColor="blue.50" h="25vh" border="1px" justify="center" align="center">
                 <Button
-                    backgroundColor="black"
-                    color="white"
+                    variant="main"
                     onClick={onOpen}
                 >
                         Create New Deck
@@ -63,12 +62,10 @@ const Deck = ({deck}) => {
             <Text>{`${deck.numCards} ${deck.numCards === 1 ? 'card':'cards'} in deck`}</Text>
             <Flex justify="space-around">
                 <Button
-                    backgroundColor="black"
-                    color="white"
+                    variant="main"
                     onClick={e=>history.push(`editDeck/${deck.id}`)}>Edit Deck</Button>
                 <Button
-                    backgroundColor="black"
-                    color="white"
+                    variant="main"
                     onClick={e=>history.push(`study/${deck.id}`)}>Study Deck</Button>
             </Flex>
         </Flex>
