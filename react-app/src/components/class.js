@@ -4,6 +4,27 @@ import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, Mo
 import {CopyIcon} from "@chakra-ui/icons"
 import { UserContext, EnrolledClassesContext, DecksContext } from "./context";
 
+
+const EnrolledClass = ({c, decks}) => {
+    return (
+    <Tr>
+        <Td><b>{c.name}</b></Td>
+        <Td>{c.numStudents}</Td>
+        <Td>
+            {!decks.length ? <Text>No decks</Text> : (
+                <Select placeholder={`${decks.length} ${decks.length === 1 ? "deck" : "decks"}`}>
+                    {decks.map(deck => (
+                    <option key={deck.id} value={deck.id}>
+                        {deck.name}
+                    </option>))}
+                </Select>)
+            }
+        </Td>
+    </Tr>
+
+    )
+}
+
 const OwnedClass = ({c, decks}) => {
     const {onCopy} = useClipboard(c.key)
     const [deckId, setDeckId] = useState();
@@ -169,15 +190,11 @@ const Class = () => {
                                     <Tr>
                                         <Th>Class</Th>
                                         <Th>Number of Students</Th>
+                                        <Th>Decks</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    {enrolledClasses.map(c => (
-                                        <Tr>
-                                            <Td><b>{c.name}</b></Td>
-                                            <Td>{c.numStudents}</Td>
-                                        </Tr>
-                                    ))}
+                                    {enrolledClasses.map(c => <EnrolledClass c={c} decks={decks.filter(deck => deck.classId === c.id)}/>)}
                                 </Tbody>
                             </Table>
                         ) : <Text>You aren't erolled in any classes</Text>}
