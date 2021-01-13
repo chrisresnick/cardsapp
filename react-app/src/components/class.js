@@ -1,23 +1,50 @@
 import React, {useContext, useState, useEffect} from "react";
 import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent,
-        Input, Thead, Tr, Th, Tbody, Td, useToast, useClipboard, IconButton, Select} from "@chakra-ui/react";
+        Input, Thead, Tr, Th, Tbody, Td, useToast, useClipboard, IconButton, Select,} from "@chakra-ui/react";
 import {CopyIcon} from "@chakra-ui/icons"
+import {useHistory} from "react-router-dom";
 import { UserContext, EnrolledClassesContext, DecksContext } from "./context";
 
 
 const EnrolledClass = ({c, decks}) => {
+    const [chDeck, setChDeck] = useState()
+    const history = useHistory();
+    const toast = useToast();
+
     return (
     <Tr>
         <Td><b>{c.name}</b></Td>
         <Td>{c.numStudents}</Td>
         <Td>
             {!decks.length ? <Text>No decks</Text> : (
-                <Select bg="white" placeholder={`${decks.length} ${decks.length === 1 ? "deck" : "decks"}`}>
-                    {decks.map(deck => (
-                    <option key={deck.id} value={deck.id}>
-                        {deck.name}
-                    </option>))}
-                </Select>)
+                <Flex>
+                    <Select
+                        value={chDeck}
+                        onChange={e=>setChDeck(e.target.value)}
+                        bg="white"
+                        borderRightRadius="none"
+                        placeholder={`${decks.length} ${decks.length === 1 ? "deck" : "decks"}`}
+                    >
+                        {decks.map(deck => (
+                        <option key={deck.id} value={deck.id}>
+                            {deck.name}
+                        </option>))}
+                    </Select>
+                    <Button
+                        variant="main"
+                        borderLeftRadius="none"
+                        onClick={e=>chDeck ? history.push(`/study/${chDeck}`) : toast({
+                            title:"Error",
+                            description: "Choose a deck to study or use the link in the nav bar to study all cards due.",
+                            status: "error",
+                            isClosable: true
+                        })}
+                    >
+                        Study
+                    </Button>
+                </Flex>
+
+                )
             }
         </Td>
     </Tr>
@@ -75,12 +102,19 @@ const OwnedClass = ({c, decks}) => {
                         bg="white"
                         onChange={e=>setDeckId(e.target.value)}
                         placeholder="choose a deck"
+                        borderEndRadius="none"
                     >
                         {decks.map((deck) => (
                             <option value={deck.id} key={deck.id}>{deck.name}</option>
                         ))}
                     </Select>
-                    <Button onClick={publish}>Publish</Button>
+                    <Button
+                        variant="main"
+                        borderLeftRadius="none"
+                        onClick={publish}
+                    >
+                            Publish
+                    </Button>
                 </Flex>
             </Td>
         </Tr>
@@ -166,7 +200,7 @@ const Class = () => {
             <Flex w="100%" justify="center">
                 <SimpleGrid columns={2} spacingX={20}>
                     <Flex direction="column" align="center">
-                        <Heading>Classes You Own</Heading>
+                        <Heading my={3}>Classes You Own</Heading>
                         {ownedClasses.length ? (
                             <Table variant="striped" colorScheme="teal">
                                 <Thead>
@@ -182,10 +216,10 @@ const Class = () => {
                                 </Tbody>
                             </Table>
                         ) : <Text>You don't own any classes</Text>}
-                        <Button onClick={onOpen}>Create a Class</Button>
+                        <Button variant="main" my={3} onClick={onOpen}>Create a Class</Button>
                     </Flex>
                     <Flex direction="column" align="center">
-                        <Heading>Classes You are Enrolled In</Heading>
+                        <Heading my={3}>Classes You are Enrolled In</Heading>
                         {enrolledClasses.length ? (
                             <Table variant="striped" colorScheme="teal">
                                 <Thead>
