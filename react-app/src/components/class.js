@@ -91,14 +91,15 @@ const OwnedClass = ({c, decks}) => {
             <Td>{c.numStudents}</Td>
             <Td>
                 <Flex direction="row" align="center">
-                    <Text isTruncated maxW="5vw">{c.key}</Text>
-                    <IconButton h={5} onClick={onCopy} aria-label="Copy Class Key" icon={<CopyIcon w={3} h={3}/>}/>
+                    <Text isTruncated maxW="8vw">{c.key}</Text>
+                    <IconButton bg="transparent" onClick={onCopy} aria-label="Copy Class Key" icon={<CopyIcon />}/>
                 </Flex>
             </Td>
             <Td>
                 <Flex>
                     <Select
                         value={deckId}
+                        minW="10vw"
                         bg="white"
                         onChange={e=>setDeckId(e.target.value)}
                         placeholder="choose a deck"
@@ -206,7 +207,7 @@ const Class = () => {
                                 <Thead>
                                     <Tr>
                                         <Th>Name</Th>
-                                        <Th>Number of Students</Th>
+                                        <Th>Students</Th>
                                         <Th>Enrollment Key</Th>
                                         <Th>Publish Deck</Th>
                                     </Tr>
@@ -234,7 +235,11 @@ const Class = () => {
                                 </Tbody>
                             </Table>
                         ) : <Text>You aren't erolled in any classes</Text>}
-                        <Button onClick={enrollOnOpen}>Enroll in a Class</Button>
+                        <Button
+                            variant="main"
+                            my={3}
+                            onClick={enrollOnOpen}
+                        >Enroll in a Class</Button>
                     </Flex>
                 </SimpleGrid>
             </Flex>
