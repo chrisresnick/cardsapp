@@ -143,7 +143,7 @@ const Cards = () => {
         })();
     }, [id])
     return (
-        <Flex width="100%" pt={5} justify="center">
+        <Flex width="100%" pt={3} justify="center">
             <Flex width="80%">
                 <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
                     {cards.slice(startIdx, startIdx+9).map((card, idx) => <Card key={`card#${card.id}`} card={card} cards={cards} setCards={setCards} idx={idx}/>)}
