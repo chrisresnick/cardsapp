@@ -63,15 +63,21 @@ const NavBar = ({setAuthenticated}) => {
             <LogoutButton setAuthenticated={setAuthenticated}/>
           </Flex>
           <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
+                <MenuButton
+                  as={Button}
+                  bg="transparent"
+                  _hover={{bg:"teal.200"}}
+                  _expanded={{bg:"teal.200"}}
+                  rightIcon={<ChevronDownIcon
+                />}>
                   {`${notifications.length} notifications`}
                 </MenuButton>
                 <MenuList>
-                  {notifications.map(note => (
+                  {notifications.length ? notifications.map(note => (
                     <MenuItem>
                       <Note note={note} />
                     </MenuItem>
-                  ))}
+                  )) : <Text w="100%" textAlign="center">No Notifications</Text>}
                 </MenuList>
             </Menu>
           {toStudy ? (
