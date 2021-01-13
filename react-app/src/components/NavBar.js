@@ -33,7 +33,7 @@ const NavBar = ({setAuthenticated}) => {
       <Flex
         paddingY='2'
         px={2}
-        bg="blue.50"
+        bg="teal.100"
         flexDir="row"
         width="100%"
         justify="space-between"

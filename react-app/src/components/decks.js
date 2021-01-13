@@ -24,7 +24,13 @@ const PlaceHolder = ({decks, setDecks}) => {
     }
     return (
         <>
-            <Flex backgroundColor="blue.50" h="25vh" border="1px" justify="center" align="center">
+            <Flex
+                backgroundColor="teal.100"
+                h="25vh"
+                shadow="lg"
+                rounded="xl"
+                justify="center"
+                align="center">
                 <Button
                     variant="main"
                     onClick={onOpen}
@@ -44,7 +50,7 @@ const PlaceHolder = ({decks, setDecks}) => {
                                 value={name}
                                 m="2"
                             />
-                            <Button w="100%" onClick={submitDeck}>Create</Button>
+                            <Button variant="main" w="100%" onClick={submitDeck}>Create</Button>
                         </form>
                     </Box>
                 </ModalContent>
@@ -57,7 +63,15 @@ const PlaceHolder = ({decks, setDecks}) => {
 const Deck = ({deck}) => {
     const history = useHistory();
     return (
-        <Flex h="25vh" border="1px" backgroundColor="blue.50" textAlign="center" direction="column" justify="space-around">
+        <Flex
+            h="25vh"
+            backgroundColor="teal.100"
+            textAlign="center"
+            direction="column"
+            justify="space-around"
+            shadow="lg"
+            rounded="xl"
+        >
             <Heading>{deck.name}</Heading>
             <Text>{`${deck.numCards} ${deck.numCards === 1 ? 'card':'cards'} in deck`}</Text>
             <Flex justify="space-around">

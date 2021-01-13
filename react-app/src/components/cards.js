@@ -25,7 +25,14 @@ const PlaceHolder = ({cards, setCards, id}) => {
     }
     return (
         <>
-            <Flex h="25vh" border="1px" justify="center" align="center">
+            <Flex
+                h="25vh"
+                bg="teal.100"
+                shadow="lg"
+                rounded="xl"
+                justify="center"
+                align="center"
+            >
                 <Button variant="main" onClick={onOpen}>Create Card</Button>
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -82,10 +89,18 @@ const Card = ({card, cards, setCards, idx}) => {
 
     return (
         <>
-            <Flex h="25vh" border="1px" textAlign="center" direction="column" justify="space-around">
+            <Flex
+                h="25vh"
+                bg="teal.100"
+                shadow="lg"
+                rounded="xl"
+                textAlign="center"
+                direction="column"
+                justify="space-around"
+            >
                 <Text>{`Question: ${card.question}`}</Text>
                 <Text>{`Answer: ${card.answer}`}</Text>
-                <Button variant="main" onClick={onOpen}>Edit Card</Button>
+                <Button mx={3} variant="main" onClick={onOpen}>Edit Card</Button>
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay/>
