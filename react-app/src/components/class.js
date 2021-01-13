@@ -181,6 +181,14 @@ const Class = () => {
     const createClass = async e => {
         e.preventDefault();
         onClose();
+        if(!className || !className.length){
+            return toast({
+                title: "Error",
+                description: "You must provide a name for the class.",
+                status: "error",
+                isClosable: true
+            });
+        }
         let res = await fetch("/api/classes/", {
             method: "POST",
             headers: {
@@ -249,7 +257,7 @@ const Class = () => {
                     <form onSubmit={createClass}>
                         <Heading my="2">Create a Class</Heading>
                         <Input my="2" placeholder="class name" value={className} onChange={e=>setClassName(e.target.value)}/>
-                        <Button onClick={createClass} my="2">Create</Button>
+                        <Button variant="main" onClick={createClass} my="2">Create</Button>
                     </form>
                 </ModalContent>
             </Modal>
@@ -259,7 +267,7 @@ const Class = () => {
                     <form onSubmit={enroll}>
                         <Heading my="2">Enroll in a Class</Heading>
                         <Input my="2" placeholder="enrollment key" value={key} onChange={e=>setKey(e.target.value)}/>
-                        <Button onClick={enroll} my="2">Request Enrollment</Button>
+                        <Button variant="main" onClick={enroll} my="2">Request Enrollment</Button>
                     </form>
                 </ModalContent>
             </Modal>
