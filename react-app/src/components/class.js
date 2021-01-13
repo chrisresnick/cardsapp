@@ -12,7 +12,7 @@ const EnrolledClass = ({c, decks}) => {
         <Td>{c.numStudents}</Td>
         <Td>
             {!decks.length ? <Text>No decks</Text> : (
-                <Select placeholder={`${decks.length} ${decks.length === 1 ? "deck" : "decks"}`}>
+                <Select bg="white" placeholder={`${decks.length} ${decks.length === 1 ? "deck" : "decks"}`}>
                     {decks.map(deck => (
                     <option key={deck.id} value={deck.id}>
                         {deck.name}
@@ -72,6 +72,7 @@ const OwnedClass = ({c, decks}) => {
                 <Flex>
                     <Select
                         value={deckId}
+                        bg="white"
                         onChange={e=>setDeckId(e.target.value)}
                         placeholder="choose a deck"
                     >
@@ -154,6 +155,7 @@ const Class = () => {
         })
         res = await res.json();
         if(!res.errors) {
+            setClassName("");
             return setOwnedClasses([...ownedClasses, res]);
         }
 
@@ -166,7 +168,7 @@ const Class = () => {
                     <Flex direction="column" align="center">
                         <Heading>Classes You Own</Heading>
                         {ownedClasses.length ? (
-                            <Table>
+                            <Table variant="striped" colorScheme="teal">
                                 <Thead>
                                     <Tr>
                                         <Th>Name</Th>
@@ -185,7 +187,7 @@ const Class = () => {
                     <Flex direction="column" align="center">
                         <Heading>Classes You are Enrolled In</Heading>
                         {enrolledClasses.length ? (
-                            <Table>
+                            <Table variant="striped" colorScheme="teal">
                                 <Thead>
                                     <Tr>
                                         <Th>Class</Th>

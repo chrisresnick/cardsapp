@@ -52,7 +52,7 @@ const Note = ({note}) => {
 
     if(note.noteType === "request"){
         return (
-            <Stack direction="column">
+            <Stack direction="column" w="100%" textAlign="center">
                 <Text>{note.message}</Text>
                 <Flex justify="space-between">
                     <Button onClick={approve} backgroundColor="green.500">Approve</Button>
@@ -63,7 +63,7 @@ const Note = ({note}) => {
     }
     if(note.noteType === "approve" || note.noteType === "deny" || note.noteType === "deck"){
         return (
-            <Stack direction="column">
+            <Stack direction="column" w="100%" textAlign="center">
                 <Text>{note.message}</Text>
                 <Flex justify="center">
                     <Button onClick={dismiss} backgroundColor="green.500">Dismiss</Button>
