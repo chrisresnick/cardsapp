@@ -59,32 +59,48 @@ const Study = () => {
                 w="75vw"
                 border="1px"
                 borderColor="gray.100"
+                py={3}
             >
-                <Text><b>{`Question: `}</b>{cardsToStudy[0].question}`</Text>
-                <Flex direction="column" align="center">
+                <Text><b>{`Question: `}</b>{cardsToStudy[0].question}</Text>
                     {!showAnswer ?
-                        <Button my={3} onClick={e => setShowAnswer(true)}>Show Answer</Button> :
+                        <Button variant="main" my={3} onClick={e => setShowAnswer(true)}>Show Answer</Button> :
                         (
                             <>
                                 <Text><b>{`Answer: `}</b>{cardsToStudy[0].answer}</Text>
-                                <FormControl>
-                                    <Heading textAlign="center" as="h3" fontSize={15}>How Hard was This Question?</Heading>
-                                    <RadioGroup onChange={setDifficulty} value={difficulty}>
-                                        <Stack direction="row">
-                                            <Radio value={"0"}>Very Easy</Radio>
-                                            <Radio value={"1"}>Easy</Radio>
-                                            <Radio value={"2"}>Fine</Radio>
-                                            <Radio value={"3"}>Hard</Radio>
-                                            <Radio value={"4"}>Very Hard</Radio>
-                                        </Stack>
-                                    </RadioGroup>
-                                </FormControl>
-                                <Button onClick={nextCard}>Next Card</Button>
+                                <Flex direction="column" align="center">
+                                    <FormControl>
+                                        <Heading textAlign="center" as="h3" fontSize={15}>How Hard was This Question?</Heading>
+                                        <RadioGroup onChange={setDifficulty} value={difficulty}>
+                                            <Flex justify="space-between" w="50vw">
+                                                <Flex direction="column" justify="center" align="center">
+                                                    <Radio value={"0"}><b>Very Easy</b></Radio>
+                                                    <Text>1 Day</Text>
+                                                </Flex>
+                                                <Flex direction="column" justify="center" align="center">
+                                                    <Radio value={"1"}><b>Easy</b></Radio>
+                                                    <Text>1 Hour</Text>
+                                                </Flex>
+                                                <Flex direction="column" justify="center" align="center">
+                                                    <Radio value={"2"}><b>Fine</b></Radio>
+                                                    <Text>10 Minutes</Text>
+                                                </Flex>
+                                                <Flex direction="column" justify="center" align="center">
+                                                    <Radio value={"3"}><b>Hard</b></Radio>
+                                                    <Text>1 Minute</Text>
+                                                </Flex>
+                                                <Flex direction="column" justify="center" align="center">
+                                                    <Radio value={"4"}><b>Very Hard</b></Radio>
+                                                    <Text>Keep In Stack</Text>
+                                                </Flex>
+                                            </Flex>
+                                        </RadioGroup>
+                                    </FormControl>
+                                    <Button variant="main" onClick={nextCard}>Next Card</Button>
+                                </Flex>
                             </>
                         )
 
                     }
-                </Flex>
             </Flex>
         </Flex>
     );
