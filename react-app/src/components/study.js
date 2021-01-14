@@ -49,11 +49,21 @@ const Study = () => {
     }
     return (
         <Flex w="100%" justify="center">
-            <Flex direction="column" mt="5" w="50vw" px="auto" align="center">
+            <Flex
+                direction="column"
+                mt="5" w="50vw"
+                px="auto"
+                align="center"
+                justify="space-between"
+                h="50vh"
+                w="75vw"
+                border="1px"
+                borderColor="gray.100"
+            >
                 <Text><b>{`Question: `}</b>{cardsToStudy[0].question}`</Text>
                 <Flex direction="column" align="center">
                     {!showAnswer ?
-                        <Button onClick={e => setShowAnswer(true)}>Show Answer</Button> :
+                        <Button my={3} onClick={e => setShowAnswer(true)}>Show Answer</Button> :
                         (
                             <>
                                 <Text><b>{`Answer: `}</b>{cardsToStudy[0].answer}</Text>
