@@ -40,6 +40,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
   return (
     <SimpleGrid
       templateColumns="2fr 1fr"
+      bg="blue.50"
     >
       <Flex
         direction="column"
@@ -64,11 +65,10 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
       </Flex>
       <Flex
         direction="column"
-        justify="center"
         align="center"
         h="90vh"
       >
-        <Flex w="100%">
+        <Flex w="100%" mt="10vh">
           <Button
             w="50%"
             bg={loginMode ? "blue.600" : "blue.900"}
@@ -103,6 +103,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
                   name="email"
                   type="text"
                   placeholder="Email"
+                  bg="white"
                   my={3}
                   value={email}
                   onChange={updateEmail}
@@ -110,6 +111,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
                 <Input
                   name="password"
                   type="password"
+                  bg="white"
                   my={3}
                   placeholder="Password"
                   value={password}

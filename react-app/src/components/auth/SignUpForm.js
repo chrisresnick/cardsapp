@@ -48,6 +48,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           type="text"
           name="username"
           placeholder="username"
+          bg="white"
           onChange={updateUsername}
           value={username}
           my={3}
@@ -56,6 +57,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           type="text"
           name="email"
           placeholder="email"
+          bg="white"
           my={3}
           onChange={updateEmail}
           value={email}
@@ -64,6 +66,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           type="password"
           name="password"
           placeholder="password"
+          bg="white"
           my={3}
           onChange={updatePassword}
           value={password}
@@ -72,6 +75,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           type="password"
           name="repeat_password"
           placeholder="confirm password"
+          bg="white"
           my={3}
           onChange={updateRepeatPassword}
           value={repeatPassword}
