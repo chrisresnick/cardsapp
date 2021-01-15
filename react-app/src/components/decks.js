@@ -125,7 +125,7 @@ const Decks = () => {
         })();
     }, [user.id])
     return (
-        <Flex width="100%" pt={5} justify="center">
+        <Flex w="100%" h="90vh" justify="center" align="center">
             <Flex width="80%">
                 <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
                     {decks.slice(startIdx, startIdx+9).map(deck => <Deck key={`deck#${deck.id}`} deck={deck}/>)}

@@ -92,7 +92,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             Sign Up
           </Button>
         </Flex>
-          {!loginMode ? <SignUpFrom/> : (
+          {!loginMode ? <SignUpFrom authenticated={authenticated} setAuthenticated={setAuthenticated}/> : (
             <>
             {errors.map((error) => (
               <Text color="red.500">{error}</Text>
