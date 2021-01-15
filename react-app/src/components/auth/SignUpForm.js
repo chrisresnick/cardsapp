@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import {Input, Button} from "@chakra-ui/react"
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 import {UserContext} from "../context";
@@ -8,7 +9,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const {user, setUser} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -43,44 +44,40 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
 
   return (
     <form onSubmit={onSignUp}>
-      <div>
-        <label>User Name</label>
-        <input
+        <Input
           type="text"
           name="username"
+          placeholder="username"
           onChange={updateUsername}
           value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
+          my={3}
+        ></Input>
+        <Input
           type="text"
           name="email"
+          placeholder="email"
+          my={3}
           onChange={updateEmail}
           value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
+        ></Input>
+        <Input
           type="password"
           name="password"
+          placeholder="password"
+          my={3}
           onChange={updatePassword}
           value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
+        ></Input>
+        <Input
           type="password"
           name="repeat_password"
+          placeholder="confirm password"
+          my={3}
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
-        ></input>
-      </div>
-      <button type="submit">Sign Up</button>
+        ></Input>
+      <Button variant="main" my={3} w="100%"type="submit">Sign Up</Button>
     </form>
   );
 };

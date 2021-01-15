@@ -52,6 +52,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             bg={loginMode ? "blue.600" : "blue.900"}
             color="white"
             _hover="none"
+            _focus="none"
             borderRightRadius="none"
             onClick={()=>setLoginMode(true)}
           >
@@ -62,6 +63,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             bg={loginMode ? "blue.900" : "blue.600"}
             color="white"
             _hover="none"
+            _focus="none"
             borderLeftRadius="none"
             onClick={()=>setLoginMode(false)}
           >
@@ -79,12 +81,14 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
                   name="email"
                   type="text"
                   placeholder="Email"
+                  my={3}
                   value={email}
                   onChange={updateEmail}
                 />
                 <Input
                   name="password"
                   type="password"
+                  my={3}
                   placeholder="Password"
                   value={password}
                   onChange={updatePassword}
