@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
 import {UserContext} from "../context";
 import SignUpFrom from "./SignUpForm";
+import SellPoint from "../sellPoint";
 
 
 const LoginForm = ({ authenticated, setAuthenticated}) => {
@@ -37,8 +38,29 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
   }
 
   return (
-    <SimpleGrid templateColumns="2fr 1fr">
-      <Flex>
+    <SimpleGrid
+      templateColumns="2fr 1fr"
+    >
+      <Flex
+        direction="column"
+        align="center"
+        justify="space-around"
+      >
+        <SellPoint
+          left={true}
+          text="test"
+          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
+        />
+        <SellPoint
+          left={false}
+          text="test"
+          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
+        />
+        <SellPoint
+          left={true}
+          text="test"
+          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
+        />
       </Flex>
       <Flex
         direction="column"
