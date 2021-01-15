@@ -58,7 +58,7 @@ const Study = () => {
                 h="50vh"
                 w="75vw"
                 border="1px"
-                borderColor="gray.100"
+                borderColor="gray.300"
                 py={3}
             >
                 <Text><b>{`Question: `}</b>{cardsToStudy[0].question}</Text>
