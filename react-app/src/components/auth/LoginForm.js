@@ -2,7 +2,7 @@ import { SimpleGrid, Flex, Input, Text, Button } from "@chakra-ui/react";
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
-import {UserContext} from "../context";
+import {UserContext, HeightContext} from "../context";
 import SignUpFrom from "./SignUpForm";
 import SellPoint from "../sellPoint";
 
@@ -13,6 +13,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
   const [loginMode, setLoginMode] = useState(true);
   const [password, setPassword] = useState("");
   const {setUser} = useContext(UserContext);
+  const heightRemaining = useContext(HeightContext);
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -37,10 +38,11 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
     return <Redirect to="/" />;
   }
 
-  return (
+  return heightRemaining && (
     <SimpleGrid
       templateColumns="2fr 1fr"
       bg="blue.50"
+      h={heightRemaining+"px"}
     >
       <Flex
         direction="column"
@@ -62,11 +64,15 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
           text="test"
           img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
         />
+        <SellPoint
+          left={false}
+          text="test"
+          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
+        />
       </Flex>
       <Flex
         direction="column"
         align="center"
-        h="90vh"
       >
         <Flex w="100%" mt="10vh">
           <Button
@@ -129,7 +135,6 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
         </form>
         </>
           )}
-
     </Flex>
   </SimpleGrid>
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import {Button, Flex, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react"
@@ -7,12 +7,13 @@ import {useContext, useState} from "react";
 import {UserContext} from "./context";
 import Note from "./note";
 
-const NavBar = ({setAuthenticated}) => {
+const NavBar = ({setAuthenticated, setNavBar}) => {
 
   const {user} = useContext(UserContext);
   const [toStudy, setToStudy] = useState(0);
   const [notifications, setNotifications] = useState([]);
-
+  const bar = useRef(null);
+  setNavBar(bar);
   const updateBar = async () => {
     let res = await fetch(`/api/users/${user.id}/navnums`);
     res = await res.json();
@@ -31,6 +32,7 @@ const NavBar = ({setAuthenticated}) => {
 
   return (
       <Flex
+        ref={bar}
         paddingY='2'
         px={2}
         bg="teal.100"
