@@ -2,7 +2,7 @@ import { Box, IconButton, Button, SimpleGrid, Text, Heading, Flex, useDisclosure
 import {ArrowUpIcon, ArrowDownIcon} from '@chakra-ui/icons';
 import React, {useState, useContext, useEffect} from "react";
 import {useHistory} from 'react-router-dom';
-import {UserContext, DecksContext} from "./context";
+import {UserContext, DecksContext, HeightContext} from "./context";
 
 const PlaceHolder = ({decks, setDecks}) => {
     const [name, setName] = useState("");
@@ -115,6 +115,7 @@ export const Scrollbar = ({startIdx, setStartIdx, lim}) => {
 const Decks = () => {
     const {user} = useContext(UserContext);
     const {decks, setDecks} = useContext(DecksContext);
+    const heightLeft = useContext(HeightContext)
     const [startIdx, setStartIdx] = useState(0);
     const extras = [0,1,2,3,4,5,6,7,8]
     useEffect(() => {
@@ -125,7 +126,7 @@ const Decks = () => {
         })();
     }, [user.id])
     return (
-        <Flex w="100%" h="90vh" justify="center" align="center">
+        <Flex w="100%" h={heightLeft+"px"} justify="center" align="center">
             <Flex width="80%">
                 <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
                     {decks.slice(startIdx, startIdx+9).map(deck => <Deck key={`deck#${deck.id}`} deck={deck}/>)}

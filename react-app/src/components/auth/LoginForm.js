@@ -1,4 +1,5 @@
-import { SimpleGrid, Flex, Input, Text, Button } from "@chakra-ui/react";
+import { SimpleGrid, Flex, Input, Text, Button, IconButton, Center } from "@chakra-ui/react";
+import {ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons'
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
@@ -14,6 +15,17 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
   const [password, setPassword] = useState("");
   const {setUser} = useContext(UserContext);
   const heightRemaining = useContext(HeightContext);
+  const [index, setIndex] = useState(0);
+  const data = [
+    {
+      img: 'https://cardsappdemo.s3.amazonaws.com/create+decks.gif',
+      text: "Test Test"
+    },
+    {
+      img: 'https://cardsappdemo.s3.amazonaws.com/classes.gif',
+      text: 'Text Classes'
+    },
+  ]
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -38,38 +50,25 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
     return <Redirect to="/" />;
   }
 
-  return heightRemaining && (
+  return (
     <SimpleGrid
       templateColumns="2fr 1fr"
       bg="blue.50"
-      h={heightRemaining+"px"}
+      h="100vh"
     >
-      <Flex
-        direction="column"
-        align="center"
-        justify="space-around"
-      >
-        <SellPoint
-          left={true}
-          text="test"
-          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
-        />
-        <SellPoint
-          left={false}
-          text="test"
-          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
-        />
-        <SellPoint
-          left={true}
-          text="test"
-          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
-        />
-        <SellPoint
-          left={false}
-          text="test"
-          img="https://upload.wikimedia.org/wikipedia/commons/9/90/Mt._Rainer-Reflection_Lake.JPG"
-        />
-      </Flex>
+      <SimpleGrid templateColumns='5% 90% 5%'>
+        <IconButton icon={<ChevronLeftIcon/>}/>
+        <SimpleGrid templateRows='80% 20%'>
+          <Center>
+            <img src={data[index].img}/>
+          </Center>
+          <Center>
+            <Text>{data[index].text}</Text>
+          </Center>
+        </SimpleGrid>
+        <IconButton icon={<ChevronRightIcon/>}/>
+
+      </SimpleGrid>
       <Flex
         direction="column"
         align="center"
@@ -77,8 +76,8 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
         <Flex w="100%" mt="10vh">
           <Button
             w="50%"
-            bg={loginMode ? "blue.600" : "blue.900"}
-            color="white"
+            bg={loginMode ? "blue.50" : "black"}
+            color={loginMode? "black" : "white"}
             _hover="none"
             _focus="none"
             borderRightRadius="none"
@@ -88,8 +87,8 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
           </Button>
           <Button
             w="50%"
-            bg={loginMode ? "blue.900" : "blue.600"}
-            color="white"
+            bg={loginMode ? "black" : "blue.50"}
+            color={!loginMode? "black" : "white"}
             _hover="none"
             _focus="none"
             borderLeftRadius="none"

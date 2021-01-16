@@ -50,7 +50,7 @@ function App() {
         <DecksContext.Provider value={{decks, setDecks}}>
           <HeightContext.Provider value={heightRemaining}>
             <BrowserRouter>
-              <NavBar setAuthenticated={setAuthenticated} setNavBar={setNavBar}/>
+              {authenticated && <NavBar setAuthenticated={setAuthenticated} setNavBar={setNavBar}/>}
               <Switch>
                 <Route path="/login" exact={true}>
                   <LoginForm

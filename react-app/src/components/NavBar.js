@@ -13,7 +13,9 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
   const [toStudy, setToStudy] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const bar = useRef(null);
+
   setNavBar(bar);
+
   const updateBar = async () => {
     let res = await fetch(`/api/users/${user.id}/navnums`);
     res = await res.json();
@@ -43,7 +45,7 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
         outline="1px solid black">
           <Flex w="33%" justify="space-around" align="center">
             <NavLink to="/" exact={true} activeClassName="active">
-              Home
+              Decks
             </NavLink>
             {!user.id ?
               (
@@ -51,18 +53,19 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
                   <NavLink to="/login" exact={true} activeClassName="active">
                     Login
                   </NavLink>
-                  <NavLink to="/sign-up" exact={true} activeClassName="active">
+                  {/* <NavLink to="/sign-up" exact={true} activeClassName="active">
                     Sign Up
-                  </NavLink>
+                  </NavLink> */}
                 </>
               ) : (
-                null
+                <>
+                <LogoutButton setAuthenticated={setAuthenticated}/>
+                <NavLink to="/classes" exact={true} activeClassName="active">
+                  Classes
+                </NavLink>
+                </>
               )
             }
-            <NavLink to="/classes" exact={true} activeClassName="active">
-              Classes
-            </NavLink>
-            <LogoutButton setAuthenticated={setAuthenticated}/>
           </Flex>
           <Menu>
                 <MenuButton

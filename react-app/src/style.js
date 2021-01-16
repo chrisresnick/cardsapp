@@ -7,7 +7,7 @@ const theme = extendTheme({
                 "main": {
                     backgroundColor: "black",
                     color: "white",
-                    _hover: {backgroundColor:"gray.700"}
+                    _hover: {backgroundColor:"gray.500"}
                 }
             }
         },
