@@ -50,14 +50,25 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
     return <Redirect to="/" />;
   }
 
+  const upDateIndex = (num) => {
+    let newIndex = index+num;
+    if(newIndex < 0) newIndex = data.length-1;
+    if(newIndex >= data.length) newIndex = 0;
+    setIndex(newIndex);
+  }
+
   return (
     <SimpleGrid
       templateColumns="2fr 1fr"
       bg="blue.50"
       h="100vh"
     >
-      <SimpleGrid templateColumns='5% 90% 5%'>
-        <IconButton icon={<ChevronLeftIcon/>}/>
+      <SimpleGrid h="100%" templateColumns='5% 90% 5%'>
+        <IconButton
+          my="auto"
+          icon={<ChevronLeftIcon boxSize="10"
+          onClick={() => upDateIndex(-1)}
+          />}/>
         <SimpleGrid templateRows='80% 20%'>
           <Center>
             <img src={data[index].img}/>
@@ -66,7 +77,11 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             <Text>{data[index].text}</Text>
           </Center>
         </SimpleGrid>
-        <IconButton icon={<ChevronRightIcon/>}/>
+        <IconButton
+          my="auto"
+          icon={<ChevronRightIcon boxSize="10"
+          onClick={() => upDateIndex(1)}
+        />}/>
 
       </SimpleGrid>
       <Flex
