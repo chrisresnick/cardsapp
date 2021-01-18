@@ -22,9 +22,17 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
       text: "Test Test"
     },
     {
+      img: 'https://cardsappdemo.s3.amazonaws.com/study+deck.gif',
+      text: "Study Text"
+    },
+    {
       img: 'https://cardsappdemo.s3.amazonaws.com/classes.gif',
       text: 'Text Classes'
     },
+    {
+      img: 'https://cardsappdemo.s3.amazonaws.com/publish.gif',
+      text: "Publish Text"
+    }
   ]
 
   const onLogin = async (e) => {
@@ -69,14 +77,14 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
           icon={<ChevronLeftIcon boxSize="10"
           onClick={() => upDateIndex(-1)}
           />}/>
-        <SimpleGrid templateRows='80% 20%'>
-          <Center>
+          <Flex
+            direction="column"
+            justify="center"
+            align="center"
+          >
             <img src={data[index].img}/>
-          </Center>
-          <Center>
             <Text>{data[index].text}</Text>
-          </Center>
-        </SimpleGrid>
+          </Flex>
         <IconButton
           my="auto"
           icon={<ChevronRightIcon boxSize="10"
@@ -87,8 +95,9 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
       <Flex
         direction="column"
         align="center"
+        mt="2vh"
       >
-        <Flex w="100%" mt="10vh">
+        <Flex w="100%">
           <Button
             w="50%"
             bg={loginMode ? "blue.50" : "black"}
