@@ -82,7 +82,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             justify="center"
             align="center"
           >
-            <img src={data[index].img}/>
+            <img alt="Demo Gif" src={data[index].img}/>
             <Text>{data[index].text}</Text>
           </Flex>
         <IconButton
