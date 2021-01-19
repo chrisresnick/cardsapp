@@ -89,6 +89,9 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
       <SimpleGrid h="100%" templateColumns='5% 90% 5%'>
         <IconButton
           my="auto"
+          bg="transparent"
+          _hover={{bg:"rgba(.5,.5,.5,.1)"}}
+          h="25%"
           icon={<ChevronLeftIcon boxSize="10"
           onClick={() => upDateIndex(-1)}
           />}/>
@@ -104,6 +107,9 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
           </Flex>
         <IconButton
           my="auto"
+          bg="transparent"
+          _hover={{bg:"rgba(.5,.5,.5,.1)"}}
+          h="25%"
           icon={<ChevronRightIcon boxSize="10"
           onClick={() => upDateIndex(1)}
         />}/>
