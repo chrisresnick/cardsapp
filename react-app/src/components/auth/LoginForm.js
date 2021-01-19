@@ -1,11 +1,10 @@
-import { SimpleGrid, Flex, Input, Text, Button, IconButton, Center } from "@chakra-ui/react";
+import { SimpleGrid, Flex, Input, Text, Button, IconButton,} from "@chakra-ui/react";
 import {ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons'
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
-import {UserContext, HeightContext} from "../context";
+import {UserContext} from "../context";
 import SignUpFrom from "./SignUpForm";
-import SellPoint from "../sellPoint";
 
 
 const LoginForm = ({ authenticated, setAuthenticated}) => {
@@ -14,7 +13,6 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
   const [loginMode, setLoginMode] = useState(true);
   const [password, setPassword] = useState("");
   const {setUser} = useContext(UserContext);
-  const heightRemaining = useContext(HeightContext);
   const [index, setIndex] = useState(0);
   const data = [
     {
@@ -65,6 +63,15 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
     setIndex(newIndex);
   }
 
+  const demoLogin = async e => {
+    let res = await fetch("/api/auth/demo", {
+      method: "POST"
+    });
+    res = await res.json();
+    setAuthenticated(true);
+    setUser(res);
+  }
+
   return (
     <SimpleGrid
       templateColumns="2fr 1fr"
@@ -96,12 +103,14 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
         direction="column"
         align="center"
         mt="2vh"
+        px="3"
       >
         <Flex w="100%">
           <Button
             w="50%"
             bg={loginMode ? "blue.50" : "black"}
             color={loginMode? "black" : "white"}
+            cursor={loginMode? "default": "pointer"}
             _hover="none"
             _focus="none"
             borderRightRadius="none"
@@ -113,6 +122,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             w="50%"
             bg={loginMode ? "black" : "blue.50"}
             color={!loginMode? "black" : "white"}
+            cursor={!loginMode? "default": "pointer"}
             _hover="none"
             _focus="none"
             borderLeftRadius="none"
@@ -152,7 +162,17 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
                   _hover={{bg:"gray.800"}}
                   type="submit"
                   value="Login"
+                  my={3}
                 />
+                <Button
+                  variant='main'
+                  onClick={demoLogin}
+                  my={3}
+                  w="100%"
+                >
+                  Log In as Demo
+                </Button>
+
 
           {/* </Flex> */}
         </form>

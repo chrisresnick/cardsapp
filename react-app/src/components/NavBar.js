@@ -16,17 +16,18 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
 
   setNavBar(bar);
 
-  const updateBar = async () => {
-    let res = await fetch(`/api/users/${user.id}/navnums`);
-    res = await res.json();
-    setToStudy(res.numCardsToStudy);
-    setNotifications(res.notes);
-  }
+
 
   useEffect(() => {
     if(!user.id){
       setToStudy(0);
       setNotifications([])
+    }
+    const updateBar = async () => {
+      let res = await fetch(`/api/users/${user.id}/navnums`);
+      res = await res.json();
+      setToStudy(res.numCardsToStudy);
+      setNotifications(res.notes);
     }
     let interval = user.id && setInterval(updateBar, 1000);
     return interval && (() => clearInterval(interval));

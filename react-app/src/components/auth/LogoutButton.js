@@ -3,7 +3,7 @@ import { logout } from "../../services/auth";
 import {UserContext} from "../context";
 
 const LogoutButton = ({setAuthenticated}) => {
-  const {user, setUser} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
   const onLogout = async (e) => {
     await logout();
     setAuthenticated(false);

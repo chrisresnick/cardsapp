@@ -13,12 +13,12 @@ const Note = ({note}) => {
         await fetch(`/api/notes/${note.id}`, {
             method:"DELETE"
         })
-        if(note.noteType == "approve") {
+        if(note.noteType === "approve") {
             let res =  await fetch(`/api/classes/`);
             res = await res.json();
             setEnrolledClasses(res.enrolled);
         }
-        if(note.noteType == "deck") {
+        if(note.noteType === "deck") {
             let res = await fetch(`/api/users/${user.id}/decks`);
             res = await res.json();
             setDecks(res.decks)

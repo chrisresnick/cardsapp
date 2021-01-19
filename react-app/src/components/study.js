@@ -1,4 +1,4 @@
-import { Box, Heading, Button, Flex, Radio, RadioGroup, Stack, FormControl, FormLabel, Text } from "@chakra-ui/react";
+import {Heading, Button, Flex, Radio, RadioGroup,FormControl, Text } from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 
@@ -9,14 +9,15 @@ const Study = () => {
     const [showAnswer, setShowAnswer] = useState(false);
     const [difficulty, setDifficulty] = useState("2");
 
-    const updateCards = async () => {
-        let res = await fetch(deckId?`/api/decks/${deckId}/due`:"/api/cards/due");
-        res = await res.json();
-        if(!res.errors) setCardsToStudy(res.cards);
-        else alert(res.errors[0]);
-    };
+
 
     useEffect(() => {
+        const updateCards = async () => {
+            let res = await fetch(deckId?`/api/decks/${deckId}/due`:"/api/cards/due");
+            res = await res.json();
+            if(!res.errors) setCardsToStudy(res.cards);
+            else alert(res.errors[0]);
+        };
         updateCards();
     }, [deckId])
 
@@ -51,7 +52,7 @@ const Study = () => {
         <Flex w="100%" justify="center">
             <Flex
                 direction="column"
-                mt="5" w="50vw"
+                mt="5"
                 px="auto"
                 align="center"
                 justify="space-between"
