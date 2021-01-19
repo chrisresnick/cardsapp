@@ -47,8 +47,15 @@ def login():
 
 
 @auth_routes.route("/demo", methods=["POST"])
-def demo_login():
+def demo2_login():
     demo = User.query.filter(User.username == "Demo").first()
+    login_user(demo)
+    return demo.to_dict()
+
+
+@auth_routes.route("/demo2", methods=["POST"])
+def demo_login():
+    demo = User.query.filter(User.username == "demo2").first()
     login_user(demo)
     return demo.to_dict()
 

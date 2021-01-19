@@ -17,19 +17,19 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
   const data = [
     {
       img: 'https://cardsappdemo.s3.amazonaws.com/create+decks.gif',
-      text: "Test Test"
+      text: "Make decks and cards."
     },
     {
       img: 'https://cardsappdemo.s3.amazonaws.com/study+deck.gif',
-      text: "Study Text"
+      text: "Study decks. Choose how hard the card was to determine the next time it will show up."
     },
     {
       img: 'https://cardsappdemo.s3.amazonaws.com/classes.gif',
-      text: 'Text Classes'
+      text: 'Create classes. Share the code to let others join. Join classes.'
     },
     {
       img: 'https://cardsappdemo.s3.amazonaws.com/publish.gif',
-      text: "Publish Text"
+      text: "Share decks of cards with students in your classes."
     }
   ]
 
@@ -71,6 +71,14 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
     setAuthenticated(true);
     setUser(res);
   }
+  const demo2Login = async e => {
+    let res = await fetch("/api/auth/demo2", {
+      method: "POST"
+    });
+    res = await res.json();
+    setAuthenticated(true);
+    setUser(res);
+  }
 
   return (
     <SimpleGrid
@@ -90,7 +98,9 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             align="center"
           >
             <img alt="Demo Gif" src={data[index].img}/>
-            <Text>{data[index].text}</Text>
+            <Text
+              fontWeight="bold"
+            >{data[index].text}</Text>
           </Flex>
         <IconButton
           my="auto"
@@ -162,6 +172,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
                   _hover={{bg:"gray.800"}}
                   type="submit"
                   value="Login"
+                  fontWeight="bold"
                   my={3}
                 />
                 <Button
@@ -171,6 +182,14 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
                   w="100%"
                 >
                   Log In as Demo
+                </Button>
+                <Button
+                  variant='main'
+                  onClick={demo2Login}
+                  my={3}
+                  w="100%"
+                >
+                  Log In as Demo2
                 </Button>
 
 

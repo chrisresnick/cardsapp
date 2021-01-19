@@ -1,7 +1,8 @@
 import { Box, Button, SimpleGrid, Heading, Text, Flex, useDisclosure, Modal, ModalContent, ModalOverlay, Input} from "@chakra-ui/react";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Scrollbar} from "./decks";
 import {useParams} from "react-router-dom";
+import {HeightContext} from "./context";
 
 const PlaceHolder = ({cards, setCards, id}) => {
     const [question, setQuestion] = useState("");
@@ -133,7 +134,8 @@ const Card = ({card, cards, setCards, idx}) => {
 const Cards = () => {
     const [cards, setCards] = useState([]);
     const [startIdx, setStartIdx] = useState(0);
-    const extras = [0,1,2,3,4,5,6,7,8]
+    const heightLeft = useContext(HeightContext);
+    const extras = [0,1,2,3,4,5,6,7,8];
     const {id} = useParams();
     useEffect(() => {
         (async ()=>{
@@ -143,7 +145,7 @@ const Cards = () => {
         })();
     }, [id])
     return (
-        <Flex width="100%" pt={3} justify="center">
+        <Flex width="100%" height={heightLeft+"px"} align="center" justify="center">
             <Flex width="80%">
                 <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
                     {cards.slice(startIdx, startIdx+9).map((card, idx) => <Card key={`card#${card.id}`} card={card} cards={cards} setCards={setCards} idx={idx}/>)}
