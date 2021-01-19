@@ -99,8 +99,8 @@ const Card = ({card, cards, setCards, idx}) => {
                 direction="column"
                 justify="space-around"
             >
-                <Text>{`Question: ${card.question}`}</Text>
-                <Text>{`Answer: ${card.answer}`}</Text>
+                <Text><b>Question: </b>{card.question}</Text>
+                <Text><b>Answer: </b>{card.answer}</Text>
                 <Button mx={3} variant="main" onClick={onOpen}>Edit Card</Button>
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose}>
