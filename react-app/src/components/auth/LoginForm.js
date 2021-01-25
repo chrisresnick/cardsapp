@@ -1,5 +1,6 @@
-import { SimpleGrid, Flex, Input, Text, Button, IconButton,} from "@chakra-ui/react";
+import { SimpleGrid, Flex, Input, Text, Button, IconButton, Link} from "@chakra-ui/react";
 import {ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons'
+import {FaLinkedin, FaGithub} from "react-icons/fa"
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
@@ -81,19 +82,20 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
   }
 
   return (
+    <>
     <SimpleGrid
       templateColumns="2fr 1fr"
       bg="blue.50"
-      h="100vh"
+      h="93vh"
     >
       <SimpleGrid h="100%" templateColumns='5% 90% 5%'>
         <IconButton
+          onClick={() => upDateIndex(-1)}
           my="auto"
           bg="transparent"
           _hover={{bg:"rgba(.5,.5,.5,.1)"}}
           h="25%"
           icon={<ChevronLeftIcon boxSize="10"
-          onClick={() => upDateIndex(-1)}
           />}/>
           <Flex
             direction="column"
@@ -107,11 +109,11 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
           </Flex>
         <IconButton
           my="auto"
+          onClick={() => upDateIndex(1)}
           bg="transparent"
           _hover={{bg:"rgba(.5,.5,.5,.1)"}}
           h="25%"
           icon={<ChevronRightIcon boxSize="10"
-          onClick={() => upDateIndex(1)}
         />}/>
 
       </SimpleGrid>
@@ -205,6 +207,31 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
           )}
     </Flex>
   </SimpleGrid>
+  <Flex 
+    bg="blue.50"
+    h="7vh"
+    borderTop="1px solid"
+    justify="space-between"
+    align="center"
+  >
+    <IconButton
+      icon={<FaLinkedin
+        size={25}
+        />}
+      bg="transparent"
+      onClick={() => window.location="https://www.linkedin.com/in/chris-resnick/"}
+    />
+    <Link href="https://chrisresnick.github.io/">
+        App By Chris Resnick
+    </Link>
+    <IconButton
+      icon={<FaGithub
+        size={25}/>}
+      bg="transparent"
+      onClick={() => window.location="https://github.com/chrisresnick"}
+    />
+  </Flex>
+  </>
 
   );
 };
