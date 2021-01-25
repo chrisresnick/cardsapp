@@ -211,7 +211,7 @@ const Class = () => {
                     <Flex direction="column" align="center">
                         <Heading my={3}>Classes You Own</Heading>
                         {ownedClasses.length ? (
-                            <Table variant="striped" colorScheme="teal">
+                            <Table variant="striped" colorScheme='teal'>
                                 <Thead>
                                     <Tr>
                                         <Th>Name</Th>
