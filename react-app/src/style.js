@@ -8,6 +8,11 @@ const theme = extendTheme({
                     backgroundColor: "black",
                     color: "white",
                     _hover: {backgroundColor:"gray.500"}
+                },
+                "delete": {
+                    backgroundColor: "red.500",
+                    color: "white",
+                    _hover: {backgroundColor:"red.200"}
                 }
             }
         },

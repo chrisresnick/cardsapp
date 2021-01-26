@@ -101,7 +101,10 @@ const Card = ({card, cards, setCards, idx}) => {
             >
                 <Text><b>Question: </b>{card.question}</Text>
                 <Text><b>Answer: </b>{card.answer}</Text>
-                <Button mx={3} variant="main" onClick={onOpen}>Edit Card</Button>
+                <Flex justify="space-around">
+                    <Button variant="main" onClick={onOpen}>Edit Card</Button>
+                    <Button variant="delete">Delete</Button>
+                </Flex>
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay/>
