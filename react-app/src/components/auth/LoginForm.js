@@ -228,7 +228,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
       icon={<FaGithub
         size={25}/>}
       bg="transparent"
-      onClick={() => window.location="https://github.com/chrisresnick"}
+      onClick={() => window.location="https://github.com/chrisresnick/cardsapp"}
     />
   </Flex>
   </>

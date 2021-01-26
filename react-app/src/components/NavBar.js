@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-import {Button, Flex, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react"
+import {Button, Flex, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react"
 import {ChevronDownIcon} from "@chakra-ui/icons"
+import {FaLinkedin, FaGithub} from "react-icons/fa"
 import {useContext, useState} from "react";
 import {UserContext} from "./context";
 import Note from "./note";
@@ -68,15 +69,19 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
               )
             }
           </Flex>
+          <Flex
+            align="center"
+          >
           <Menu>
                 <MenuButton
+                  mx="3"
                   as={Button}
                   bg={notifications.length ? "red.500" : "teal.200"}
                   _hover={{bg:"teal.200"}}
                   _expanded={{bg:"teal.200"}}
                   rightIcon={<ChevronDownIcon
                 />}>
-                  {`${notifications.length} notification${notifications.length == 1 ? "" :  "s"}`}
+                  {`${notifications.length} notification${notifications.length === 1 ? "" :  "s"}`}
                 </MenuButton>
                 <MenuList>
                   {notifications.length ? notifications.map(note => (
@@ -93,6 +98,27 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
               </NavLink>
             </>
           ): <Text>No cards due.</Text>}
+          </Flex>
+          <Flex
+            align="center"
+          >
+            <Link
+              href="https://chrisresnick.github.io/"
+            >App by Chris Resnick</Link>
+            <IconButton
+              icon={<FaLinkedin
+              size={25}/>}
+              bg="transparent"
+              onClick={() => window.location="https://www.linkedin.com/in/chris-resnick/"}
+            />
+            <IconButton
+              icon={<FaGithub
+              size={25}/>}
+              bg="transparent"
+              onClick={() => window.location="https://github.com/chrisresnick/cardsapp"}
+            />
+          </Flex>
+
 
       </Flex>
   );
