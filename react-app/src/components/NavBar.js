@@ -76,7 +76,7 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
                   _expanded={{bg:"teal.200"}}
                   rightIcon={<ChevronDownIcon
                 />}>
-                  {`${notifications.length} notifications`}
+                  {`${notifications.length} notification${notifications.length == 1 ? "" :  "s"}`}
                 </MenuButton>
                 <MenuList>
                   {notifications.length ? notifications.map(note => (

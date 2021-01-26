@@ -1,6 +1,7 @@
 import {Heading, Button, Flex, Radio, RadioGroup,FormControl, Text } from "@chakra-ui/react";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {useHistory, useParams} from "react-router-dom";
+import {DecksContext} from "./context"
 
 const Study = () => {
     const {deckId} = useParams();
@@ -8,6 +9,7 @@ const Study = () => {
     const [cardsToStudy, setCardsToStudy] = useState([]);
     const [showAnswer, setShowAnswer] = useState(false);
     const [difficulty, setDifficulty] = useState("2");
+    const {decks} = useContext(DecksContext);
 
 
 
@@ -62,7 +64,12 @@ const Study = () => {
                 borderColor="gray.300"
                 py={3}
             >
-                <Text><b>{`Question: `}</b>{cardsToStudy[0].question}</Text>
+                <Flex
+                    direction="column"
+                >
+                    <Text><b>{`Deck: `}</b>{decks.filter(deck=>deck.id===cardsToStudy[0].deckId)[0].name}</Text>
+                    <Text><b>{`Question: `}</b>{cardsToStudy[0].question}</Text>
+                </Flex>
                     {!showAnswer ?
                         <Button variant="main" my={3} onClick={e => setShowAnswer(true)}>Show Answer</Button> :
                         (
