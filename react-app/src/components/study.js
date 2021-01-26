@@ -67,7 +67,7 @@ const Study = () => {
                 <Flex
                     direction="column"
                 >
-                    <Text><b>{`Deck: `}</b>{decks.filter(deck=>deck.id===cardsToStudy[0].deckId)[0].name}</Text>
+                    {decks.length ? <Text><b>{`Deck: `}</b>{decks.filter(deck=>deck.id===cardsToStudy[0].deckId)[0].name}</Text>:null}
                     <Text><b>{`Question: `}</b>{cardsToStudy[0].question}</Text>
                 </Flex>
                     {!showAnswer ?

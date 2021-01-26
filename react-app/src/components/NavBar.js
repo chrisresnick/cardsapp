@@ -71,7 +71,7 @@ const NavBar = ({setAuthenticated, setNavBar}) => {
           <Menu>
                 <MenuButton
                   as={Button}
-                  bg={notifications.length ? "red.500" : "transparent"}
+                  bg={notifications.length ? "red.500" : "teal.200"}
                   _hover={{bg:"teal.200"}}
                   _expanded={{bg:"teal.200"}}
                   rightIcon={<ChevronDownIcon
