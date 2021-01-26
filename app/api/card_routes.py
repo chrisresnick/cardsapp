@@ -17,6 +17,15 @@ def editCard(id):
     db.session.commit()
     return card.to_dict()
 
+@card_routes.route("/<int:id>", methods=["DELETE"])
+def deleteCard(id):
+    card = Card.query.get(id)
+    if card.deck.ownerId != current_user.id:
+        return {"errors": ["You cannot edit a card you dont own"]}, 401
+    db.session.delete(card)
+    db.session.commit()
+    return {"deleted": id}
+
 
 @card_routes.route("/due")
 def getCardsDueNow():

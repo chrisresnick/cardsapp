@@ -1,5 +1,5 @@
-import { Box, Button, SimpleGrid, Heading, Text, Flex, useDisclosure, Modal, ModalContent, ModalOverlay, Input} from "@chakra-ui/react";
-import React, {useState, useEffect, useContext} from "react";
+import { Box, Button, SimpleGrid, Heading, Text, Flex, useDisclosure, Modal, ModalContent, ModalOverlay, Input, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody, AlertDialogFooter} from "@chakra-ui/react";
+import React, {useState, useEffect, useContext, useRef} from "react";
 import {Scrollbar} from "./decks";
 import {useParams} from "react-router-dom";
 import {HeightContext} from "./context";
@@ -67,6 +67,9 @@ const Card = ({card, cards, setCards, idx}) => {
     const [question, setQuestion] = useState(card.question);
     const [answer, setAnswer] = useState(card.answer);
     const {isOpen, onOpen, onClose} = useDisclosure();
+    const {isOpen:isOpenA, onOpen:onOpenA, onClose:onCloseA} = useDisclosure();
+    const {cancelButton} = useRef();
+    
 
     const editCard = async e => {
         e.preventDefault();
@@ -88,6 +91,25 @@ const Card = ({card, cards, setCards, idx}) => {
         onClose();
     };
 
+    const deleteCard = async e => {
+        e.preventDefault();
+        let res = await fetch(`/api/cards/${card.id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+        })
+        res = await res.json();
+        if(res.errors) {
+            alert(res.errors[0]);
+            return;
+        }
+        if(res.deleted){
+            setCards(cards.filter(card => card.id !== res.deleted))
+        }
+        onCloseA()
+    };
+
     return (
         <>
             <Flex
@@ -103,7 +125,7 @@ const Card = ({card, cards, setCards, idx}) => {
                 <Text><b>Answer: </b>{card.answer}</Text>
                 <Flex justify="space-around">
                     <Button variant="main" onClick={onOpen}>Edit Card</Button>
-                    <Button variant="delete">Delete</Button>
+                    <Button variant="delete" onClick={onOpenA}>Delete</Button>
                 </Flex>
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -130,6 +152,24 @@ const Card = ({card, cards, setCards, idx}) => {
 
                 </ModalContent>
             </Modal>
+            <AlertDialog
+                leastDestructiveRef={cancelButton}
+                onClose={onCloseA}
+                isOpen={isOpenA}
+            >
+                <AlertDialogOverlay/>
+                <AlertDialogContent>
+                    <AlertDialogHeader>Delete Card?</AlertDialogHeader>
+                    <AlertDialogBody>
+                        Are you sure you want to permanently delete this card?
+                    </AlertDialogBody>
+                    <AlertDialogFooter>
+                        <Button mx="auto" variant="main" ref={cancelButton} onClick={onCloseA}>Close</Button>
+                        <Button mx="auto" variant="delete" onClick={deleteCard}>Delete</Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+
+            </AlertDialog>
         </>
     )
 }
