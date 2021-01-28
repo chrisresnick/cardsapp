@@ -2,7 +2,7 @@ import { Box, Button, SimpleGrid, Heading, Text, Flex, useDisclosure, Modal, Mod
 import React, {useState, useEffect, useContext, useRef} from "react";
 import {Scrollbar} from "./decks";
 import {useParams} from "react-router-dom";
-import {HeightContext} from "./context";
+import {DecksContext, HeightContext} from "./context";
 
 const PlaceHolder = ({cards, setCards, id}) => {
     const [question, setQuestion] = useState("");
@@ -177,26 +177,32 @@ const Card = ({card, cards, setCards, idx}) => {
 const Cards = () => {
     const [cards, setCards] = useState([]);
     const [startIdx, setStartIdx] = useState(0);
+    const [deckName, setDeckName] = useState("");
     const heightLeft = useContext(HeightContext);
+    const heading = useRef(null)
     const extras = [0,1,2,3,4,5,6,7,8];
     const {id} = useParams();
     useEffect(() => {
         (async ()=>{
             let res = await fetch(`/api/decks/${id}/cards`);
             res = await res.json();
-            setCards(res.cards)
+            setCards(res.cards);
+            setDeckName(res.name);
         })();
     }, [id])
     return (
-        <Flex width="100%" height={heightLeft+"px"} align="center" justify="center">
-            <Flex width="80%">
-                <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
-                    {cards.slice(startIdx, startIdx+9).map((card, idx) => <Card key={`card#${card.id}`} card={card} cards={cards} setCards={setCards} idx={idx}/>)}
-                    {extras.slice(0, (9-(cards.length-startIdx))).map((_, idx) => <PlaceHolder key={`ph${idx}`} cards={cards} setCards={setCards} id={id}/>)}
-                </SimpleGrid>
-                <Scrollbar startIdx={startIdx} setStartIdx={setStartIdx} lim={cards.length}/>
+        <>
+            <Heading ref={heading} marginBottom="1" as="h1" textAlign="center">{deckName}</Heading>
+            <Flex width="100%" height={heightLeft-(heading.current ? heading.current.height : 0)+"px"} justify="center">
+                <Flex width="80%">
+                    <SimpleGrid overflow="hidden" borderLeft="1px" borderTop="1px" borderBottom="1px" borderColor="gray.300" p={5} columns={3} spacing={5} w="90%" h="85vh">
+                        {cards.slice(startIdx, startIdx+9).map((card, idx) => <Card key={`card#${card.id}`} card={card} cards={cards} setCards={setCards} idx={idx}/>)}
+                        {extras.slice(0, (9-(cards.length-startIdx))).map((_, idx) => <PlaceHolder key={`ph${idx}`} cards={cards} setCards={setCards} id={id}/>)}
+                    </SimpleGrid>
+                    <Scrollbar startIdx={startIdx} setStartIdx={setStartIdx} lim={cards.length}/>
+                </Flex>
             </Flex>
-        </Flex>
+        </>
     );
 };
 
