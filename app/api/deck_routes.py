@@ -47,3 +47,16 @@ def getDeckCards(id):
 def getDeckCardsDue(id):
     cards = Card.query.filter(Card.deckId == id).filter(Card.nextShow <= datetime.now()).all()
     return {'cards': [card.to_dict() for card in cards]}
+
+@deck_routes.route("/<int:id>/rename", methods=["POST"])
+def renameDeck(id):
+    deck = Deck.query.get(id)
+    if deck.ownerId != current_user.id:
+        return {"errors": ["You cannot add to a deck that you don't own"]}, 401
+    name = request.json["name"]
+    if not name:
+        return {"errors": ["You must provide a name"]}
+    deck.name = name
+    db.session.commit()
+    return {"name": name}
+    

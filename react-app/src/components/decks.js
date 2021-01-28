@@ -1,4 +1,4 @@
-import { Box, IconButton, Button, SimpleGrid, Text, Heading, Flex, useDisclosure, Modal, ModalContent, ModalOverlay, Input} from "@chakra-ui/react";
+import { Box, IconButton, Button, SimpleGrid, Text, Heading, Flex, useDisclosure, Modal, ModalContent, ModalOverlay, Input, Editable, EditableInput, EditablePreview} from "@chakra-ui/react";
 import {ArrowUpIcon, ArrowDownIcon} from '@chakra-ui/icons';
 import React, {useState, useContext, useEffect} from "react";
 import {useHistory} from 'react-router-dom';
@@ -62,6 +62,19 @@ const PlaceHolder = ({decks, setDecks}) => {
 
 const Deck = ({deck}) => {
     const history = useHistory();
+    const editName = async name => {
+        let res = await fetch(`/api/decks/${deck.id}/rename`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify({name})
+        });
+        res = await res.json();
+        if(res.errors) alert(res.errors[0]);
+        else deck.name = res.name
+
+    }
     return (
         <Flex
             h="25vh"
@@ -72,7 +85,11 @@ const Deck = ({deck}) => {
             shadow="lg"
             rounded="xl"
         >
-            <Heading>{deck.name}</Heading>
+            {/* <Heading>{deck.name}</Heading> */}
+            <Editable fontSize="2xl" fontWeight="bold" defaultValue={deck.name} onSubmit={editName}>
+                <EditableInput/>
+                <EditablePreview/>
+            </Editable>
             <Text>{`${deck.numCards} ${deck.numCards === 1 ? 'card':'cards'} in deck`}</Text>
             <Flex justify="space-around">
                 <Button
