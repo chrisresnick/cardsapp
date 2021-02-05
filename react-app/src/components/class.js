@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
 import {Text, Table, Flex, SimpleGrid, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent,
-        Input, Thead, Tr, Th, Tbody, Td, useToast, useClipboard, IconButton, Select,} from "@chakra-ui/react";
+        Input, Thead, Tr, Th, Tbody, Td, useToast, useClipboard, IconButton, Select, Box} from "@chakra-ui/react";
 import {CopyIcon} from "@chakra-ui/icons"
 import {useHistory} from "react-router-dom";
 import { UserContext, EnrolledClassesContext, DecksContext } from "./context";
@@ -206,7 +206,7 @@ const Class = () => {
 
     return (
         <>
-            <Flex w="100%" justify="center">
+            <Flex w="100%" justify="center" px={10}>
                 <SimpleGrid columns={2} spacingX={20}>
                     <Flex direction="column" align="center">
                         <Heading my={3}>Classes You Own</Heading>
@@ -254,21 +254,25 @@ const Class = () => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay/>
                 <ModalContent textAlign="center">
-                    <form onSubmit={createClass}>
-                        <Heading my="2">Create a Class</Heading>
-                        <Input my="2" placeholder="class name" value={className} onChange={e=>setClassName(e.target.value)}/>
-                        <Button variant="main" onClick={createClass} my="2">Create</Button>
-                    </form>
+                    <Box textAlign="center" p="2">
+                        <form onSubmit={createClass}>
+                            <Heading my="2">Create a Class</Heading>
+                            <Input my="2" placeholder="class name" value={className} onChange={e=>setClassName(e.target.value)}/>
+                            <Button variant="main" onClick={createClass} my="2">Create</Button>
+                        </form>
+                    </Box>
                 </ModalContent>
             </Modal>
             <Modal isOpen={enrollIsOpen} onClose={enrollOnClose}>
                 <ModalOverlay/>
                 <ModalContent textAlign="center">
-                    <form onSubmit={enroll}>
-                        <Heading my="2">Enroll in a Class</Heading>
-                        <Input my="2" placeholder="enrollment key" value={key} onChange={e=>setKey(e.target.value)}/>
-                        <Button variant="main" onClick={enroll} my="2">Request Enrollment</Button>
-                    </form>
+                    <Box textAlign="center" p="2">
+                        <form onSubmit={enroll}>
+                            <Heading my="2">Enroll in a Class</Heading>
+                            <Input my="2" placeholder="enrollment key" value={key} onChange={e=>setKey(e.target.value)}/>
+                            <Button variant="main" onClick={enroll} my="2">Request Enrollment</Button>
+                        </form>
+                    </Box>
                 </ModalContent>
             </Modal>
         </>

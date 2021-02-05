@@ -46,13 +46,15 @@ const PlaceHolder = ({cards, setCards, id}) => {
                                 placeholder="Question"
                                 onChange={e => setQuestion(e.target.value)}
                                 value={question}
-                                m="2"
+                                w="100%"
+                                my="2"
                             />
                             <Input
                                 placeholder="Answer"
                                 onChange={e => setAnswer(e.target.value)}
                                 value={answer}
-                                m="2"
+                                w="100%"
+                                my="2"
                             />
                             <Button w="100%" onClick={submitCard}>Create</Button>
                         </form>
@@ -138,13 +140,13 @@ const Card = ({card, cards, setCards, idx}) => {
                                 placeholder="Question"
                                 onChange={e => setQuestion(e.target.value)}
                                 value={question}
-                                m="2"
+                                my="2"
                             />
                             <Input
                                 placeholder="Answer"
                                 onChange={e => setAnswer(e.target.value)}
                                 value={answer}
-                                m="2"
+                                my="2"
                             />
                             <Button w="100%" onClick={editCard}>Edit</Button>
                         </form>

@@ -48,7 +48,8 @@ const PlaceHolder = ({decks, setDecks}) => {
                                 placeholder="Deck Name"
                                 onChange={e => setName(e.target.value)}
                                 value={name}
-                                m="2"
+                                w="100%"
+                                my="2"
                             />
                             <Button variant="main" w="100%" onClick={submitDeck}>Create</Button>
                         </form>
