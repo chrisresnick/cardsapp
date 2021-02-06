@@ -1,4 +1,4 @@
-import { SimpleGrid, Flex, Input, Text, Button, IconButton, Link} from "@chakra-ui/react";
+import { SimpleGrid, Flex, Input, Text, Button, IconButton, Link, Box} from "@chakra-ui/react";
 import {ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons'
 import {FaLinkedin, FaGithub} from "react-icons/fa"
 import React, { useState, useContext } from "react";
@@ -83,6 +83,30 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
 
   return (
     <>
+      <Flex 
+    bg="blue.50"
+    h="7vh"
+    borderBottom="1px solid"
+    justify="space-between"
+    align="center"
+  >
+    <IconButton
+      icon={<FaLinkedin
+        size={25}
+        />}
+      bg="transparent"
+      onClick={() => window.location="https://www.linkedin.com/in/chris-resnick/"}
+    />
+    <Link href="https://chrisresnick.github.io/">
+        App By Chris Resnick
+    </Link>
+    <IconButton
+      icon={<FaGithub
+        size={25}/>}
+      bg="transparent"
+      onClick={() => window.location="https://github.com/chrisresnick/cardsapp"}
+    />
+  </Flex>
     <SimpleGrid
       templateColumns="2fr 1fr"
       bg="blue.50"
@@ -123,114 +147,97 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
         mt="2vh"
         px="3"
       >
-        <Flex w="100%">
-          <Button
-            w="50%"
-            bg={loginMode ? "blue.50" : "black"}
-            color={loginMode? "black" : "white"}
-            cursor={loginMode? "default": "pointer"}
-            _hover="none"
-            _focus="none"
-            borderRightRadius="none"
-            onClick={()=>setLoginMode(true)}
-          >
-            Log In
-          </Button>
-          <Button
-            w="50%"
-            bg={loginMode ? "black" : "blue.50"}
-            color={!loginMode? "black" : "white"}
-            cursor={!loginMode? "default": "pointer"}
-            _hover="none"
-            _focus="none"
-            borderLeftRadius="none"
-            onClick={()=>setLoginMode(false)}
-          >
-            Sign Up
-          </Button>
-        </Flex>
-          {!loginMode ? <SignUpFrom authenticated={authenticated} setAuthenticated={setAuthenticated}/> : (
-            <>
-            {errors.map((error) => (
-              <Text color="red.500">{error}</Text>
-            ))}
-          <form onSubmit={onLogin}>
-            {/* <Flex direction="column" justify="center" align="center"> */}
-                <Input
-                  name="email"
-                  type="text"
-                  placeholder="Email"
-                  bg="white"
-                  my={3}
-                  value={email}
-                  onChange={updateEmail}
-                />
-                <Input
-                  name="password"
-                  type="password"
-                  bg="white"
-                  my={3}
-                  placeholder="Password"
-                  value={password}
-                  onChange={updatePassword}
-                />
-                <Input
-                  bg="black"
-                  color="white"
-                  _hover={{bg:"gray.800"}}
-                  type="submit"
-                  value="Login"
-                  fontWeight="bold"
-                  my={3}
-                />
-                <Button
-                  variant='main'
-                  onClick={demoLogin}
-                  my={3}
-                  w="100%"
-                >
-                  Log In as Demo
-                </Button>
-                <Button
-                  variant='main'
-                  onClick={demo2Login}
-                  my={3}
-                  w="100%"
-                >
-                  Log In as Demo2
-                </Button>
-
-
-          {/* </Flex> */}
-        </form>
-        </>
+        <Box
+          w="100%"
+          mx={5}
+          p={5}
+          my="auto"
+          border="2px"
+        >
+          <Flex w="100%">
+            <Button
+              w="50%"
+              bg={loginMode ? "blue.50" : "black"}
+              color={loginMode? "black" : "white"}
+              cursor={loginMode? "default": "pointer"}
+              _hover="none"
+              _focus="none"
+              borderRightRadius="none"
+              onClick={()=>setLoginMode(true)}
+            >
+              Log In
+            </Button>
+            <Button
+              w="50%"
+              bg={loginMode ? "black" : "blue.50"}
+              color={!loginMode? "black" : "white"}
+              cursor={!loginMode? "default": "pointer"}
+              _hover="none"
+              _focus="none"
+              borderLeftRadius="none"
+              onClick={()=>setLoginMode(false)}
+            >
+              Sign Up
+            </Button>
+          </Flex>
+          {loginMode ? (
+            <Flex
+            w="100%"
+            flexDir="column"
+            >
+            {errors.map((error) => (<Text color="red.500">{error}</Text>))}
+            <Input
+              name="email"
+              type="text"
+              placeholder="Email"
+              bg="white"
+              my={3}
+              value={email}
+              onChange={updateEmail}
+            />
+            <Input
+              name="password"
+              type="password"
+              bg="white"
+              my={3}
+              placeholder="Password"
+              value={password}
+              onChange={updatePassword}
+            />
+            <Input
+              bg="black"
+              color="white"
+              _hover={{bg:"gray.800"}}
+              type="submit"
+              value="Login"
+              fontWeight="bold"
+              my={3}
+            />
+            <Button
+              variant='main'
+              onClick={demoLogin}
+              my={3}
+              w="100%"
+            >
+              Log In as Demo
+            </Button>
+            <Button
+              variant='main'
+              onClick={demo2Login}
+              my={3}
+              w="100%"
+            >
+              Log In as Demo2
+            </Button>
+          </Flex>
+          ): (
+            <SignUpFrom authenticated={authenticated} setAuthenticated={setAuthenticated}/>
           )}
+          
+          
+        </Box>
     </Flex>
   </SimpleGrid>
-  <Flex 
-    bg="blue.50"
-    h="7vh"
-    borderTop="1px solid"
-    justify="space-between"
-    align="center"
-  >
-    <IconButton
-      icon={<FaLinkedin
-        size={25}
-        />}
-      bg="transparent"
-      onClick={() => window.location="https://www.linkedin.com/in/chris-resnick/"}
-    />
-    <Link href="https://chrisresnick.github.io/">
-        App By Chris Resnick
-    </Link>
-    <IconButton
-      icon={<FaGithub
-        size={25}/>}
-      bg="transparent"
-      onClick={() => window.location="https://github.com/chrisresnick/cardsapp"}
-    />
-  </Flex>
   </>
 
   );
