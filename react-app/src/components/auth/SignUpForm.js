@@ -52,6 +52,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           onChange={updateUsername}
           value={username}
           my={3}
+          required={true}
         ></Input>
         <Input
           type="text"
@@ -61,6 +62,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           my={3}
           onChange={updateEmail}
           value={email}
+          required={true}
         ></Input>
         <Input
           type="password"
@@ -70,6 +72,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           my={3}
           onChange={updatePassword}
           value={password}
+          required={true}
         ></Input>
         <Input
           type="password"

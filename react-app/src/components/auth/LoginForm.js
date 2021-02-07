@@ -151,7 +151,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
           w="100%"
           mx={5}
           p={5}
-          my="auto"
+          marginTop="5vh"
           border="2px"
         >
           <Flex w="100%">
@@ -211,6 +211,7 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
               type="submit"
               value="Login"
               fontWeight="bold"
+              onClick={onLogin}
               my={3}
             />
             <Button
