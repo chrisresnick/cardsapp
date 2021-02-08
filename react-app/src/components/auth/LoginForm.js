@@ -158,10 +158,11 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             <Button
               w="50%"
               bg={loginMode ? "blue.50" : "black"}
-              color={loginMode? "black" : "white"}
-              cursor={loginMode? "default": "pointer"}
+              color={loginMode? "gray.500" : "white"}
+              cursor={loginMode? "not-allowed": "pointer"}
               _hover="none"
               _focus="none"
+              _active="none"
               borderRightRadius="none"
               onClick={()=>setLoginMode(true)}
             >
@@ -170,10 +171,11 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             <Button
               w="50%"
               bg={loginMode ? "black" : "blue.50"}
-              color={!loginMode? "black" : "white"}
-              cursor={!loginMode? "default": "pointer"}
+              color={!loginMode? "gray.500" : "white"}
+              cursor={!loginMode? "not-allowed": "pointer"}
               _hover="none"
               _focus="none"
+              _active="none"
               borderLeftRadius="none"
               onClick={()=>setLoginMode(false)}
             >
@@ -222,14 +224,14 @@ const LoginForm = ({ authenticated, setAuthenticated}) => {
             >
               Log In as Demo
             </Button>
-            <Button
+            {/* <Button
               variant='main'
               onClick={demo2Login}
               my={3}
               w="100%"
             >
               Log In as Demo2
-            </Button>
+            </Button> */}
           </Flex>
           ): (
             <SignUpFrom authenticated={authenticated} setAuthenticated={setAuthenticated}/>
