@@ -6,7 +6,7 @@
 - This app uses flask for the backend with a postgreSQL database. React is used for the front end. 
 
 
-# Core Features:
+## Core Features:
 - Ability to create a new deck
 - Ability of add/remove cards from a deck
 - Ability to edit cards
@@ -24,7 +24,7 @@
 
 
 
-# Database Schema
+## Database Schema
 - Users
     - ID - Serial
     - Username - String
@@ -70,13 +70,13 @@
     - StudentId - INT Foreign Key => Users
     - ClassId - Int Foreign Key => Classes
 
-# Technologies Used
-    - Flask
-    - PostgreSQL
-    - React
-        - Chakra.UI
+## Technologies Used
+- Flask
+- PostgreSQL
+- React
+    - Chakra.UI
 
-# /api/ Routes
+## /api/ Routes
 - Core
     - PUT <b>/cards/<int:id></b> - edit a card
     - DELETE <b>/cards/<int:id></b> - delete a card
@@ -101,7 +101,7 @@
 
 
 
-# React Components
+## React Components
 - Decks View
     - Deck
     - PlaceHolder
