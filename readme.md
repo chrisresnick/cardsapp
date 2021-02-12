@@ -34,7 +34,8 @@
 - Decks
     - ID - Serial
     - Name - String
-    - ClassId - Int foreign key => Classes
+    - ClassId - Int foreign key => 
+    
     - OwnerId - Int, foreign key => Users
     - ShareType - Enum(private, public, shared)
     - ReadOnly - Bool
@@ -89,7 +90,7 @@
     - GET <b>/decks/<int:id>/due</b> - get all the cards in a given deck that are due
     - POST <b>/decks/<int:id>/rename</b> - rename a deck
 - Social
-    - GET <b>/classes</b> - get all the classs data for the current user
+    - GET <b>/classes</b> - get all the class data for the current user
     - POST <b>/classes</b> - create a new class
     - POST <b>/classes/enroll</b> - create a new enrollment request
     - POST <b>/classes/<int:id>/publish</b> - publish a deck of cards to a given class
